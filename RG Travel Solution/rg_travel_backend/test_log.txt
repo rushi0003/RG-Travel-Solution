@@ -1,6 +1,0 @@
-Starting Backend Tests...
-[OK] Admin Login successful
-[OK] Created Employee: ID=1, Code=EMP00001
-[OK] Search Rows found: [1]
-[OK] Search by Name found the employee
-[OK] Delete Employee successful
