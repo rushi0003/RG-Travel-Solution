@@ -1,0 +1,380 @@
+{
+  "title": "RG Travel Solution - Phase 2 API Endpoints",
+  "version": "2.0",
+  "phase": 2,
+  "status": "✅ Implemented",
+  "date": "2026-02-02",
+  "baseUrl": "http://localhost:5000",
+  "baseUrlAndroid": "http://10.0.2.2:5000",
+  "apiPrefix": "/api",
+  "description": "OTP Integration & Live Tracking Endpoints - Phase 2",
+  "summary": {
+    "total_endpoints": 9,
+    "otp_endpoints": 3,
+    "tracking_endpoints": 5,
+    "admin_endpoints": 1
+  },
+  "endpoints": {
+    "otp": {
+      "name": "OTP Management",
+      "description": "One-Time Password generation, verification, and status tracking",
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/api/admin/trips/{trip_id}/otps/generate",
+          "name": "Generate OTPs for Trip",
+          "description": "Admin generates start & end OTPs for a trip. Automatically called when trip is created.",
+          "authentication": true,
+          "role": "admin",
+          "requestBody": null,
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "message": "OTPs generated.",
+            "data": {
+              "trip_id": 1,
+              "start_otp": "123456",
+              "end_otp": "654321",
+              "expires_in_minutes": 5,
+              "expires_at": "2026-02-02T10:35:00+00:00"
+            }
+          },
+          "errorCodes": [
+            {
+              "code": 400,
+              "message": "Trip not found."
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/trips/{trip_id}/otps/status",
+          "name": "Get OTP Status",
+          "description": "Check OTP existence, usage, and expiry status for a trip",
+          "authentication": true,
+          "role": "admin",
+          "requestBody": null,
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "data": {
+              "trip_id": 1,
+              "start": {
+                "exists": true,
+                "is_used": false,
+                "expired": false,
+                "expires_at": "2026-02-02T10:35:00+00:00"
+              },
+              "end": {
+                "exists": true,
+                "is_used": false,
+                "expired": false,
+                "expires_at": "2026-02-02T10:35:00+00:00"
+              }
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/driver/{driver_id}/trip/{trip_id}/otp/verify",
+          "name": "Verify OTP (Driver)",
+          "description": "Driver verifies OTP to start or end trip. Updates trip status automatically.",
+          "authentication": true,
+          "role": "driver",
+          "requestBody": {
+            "otp_type": "start",
+            "otp": "123456"
+          },
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "message": "OTP verified.",
+            "data": {
+              "trip_id": 1,
+              "status": "started",
+              "trip_type": "pickup"
+            }
+          },
+          "errorCodes": [
+            {
+              "code": 400,
+              "message": "OTP must be exactly 6 digits."
+            },
+            {
+              "code": 400,
+              "message": "OTP expired. Please regenerate OTP."
+            },
+            {
+              "code": 400,
+              "message": "OTP already used."
+            },
+            {
+              "code": 400,
+              "message": "Invalid OTP."
+            },
+            {
+              "code": 400,
+              "message": "Trip cannot start. Current status: cancelled"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/employee/trips/{route_no}/otp",
+          "name": "Get OTP (Employee)",
+          "description": "Employee fetches OTP for their trip. OTP is regenerated on each request.",
+          "authentication": true,
+          "role": "employee",
+          "queryParams": [
+            {
+              "name": "employee_id",
+              "type": "integer",
+              "required": true,
+              "description": "Employee ID"
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "required": true,
+              "description": "OTP type: 'start' or 'end'"
+            }
+          ],
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "data": {
+              "trip_id": 5,
+              "otp_type": "start",
+              "otp": "234567",
+              "expires_at": "2026-02-02T10:40:00+00:00"
+            }
+          }
+        }
+      ]
+    },
+    "tracking": {
+      "name": "Live Driver Tracking",
+      "description": "Real-time GPS location updates and history",
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/api/driver/{driver_id}/gps",
+          "name": "Send GPS Update",
+          "description": "Driver sends GPS location (call every 5-10 seconds during trip)",
+          "authentication": true,
+          "role": "driver",
+          "requestBody": {
+            "lat": 18.5204,
+            "lng": 73.8567,
+            "accuracy": 10,
+            "speed": 2.5,
+            "bearing": 120,
+            "route_no": "ABC1234567"
+          },
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "message": "Location updated.",
+            "data": {
+              "driver_id": 1,
+              "lat": 18.5204,
+              "lng": 73.8567,
+              "recorded_at": "2026-02-02T10:30:45+00:00"
+            }
+          },
+          "errorCodes": [
+            {
+              "code": 400,
+              "message": "Invalid lat/lng."
+            },
+            {
+              "code": 404,
+              "message": "Driver not found."
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/api/driver/{driver_id}/gps/latest",
+          "name": "Get Latest Driver Location",
+          "description": "Fetch driver's most recent GPS location",
+          "authentication": true,
+          "role": "driver",
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "message": "Latest location.",
+            "data": {
+              "driver_id": 1,
+              "lat": 18.5204,
+              "lng": 73.8567,
+              "accuracy": 10,
+              "speed": 2.5,
+              "bearing": 120,
+              "recorded_at": "2026-02-02T10:30:45+00:00"
+            }
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/drivers/online",
+          "name": "Get All Online Drivers",
+          "description": "Admin views all currently online drivers with their latest location",
+          "authentication": true,
+          "role": "admin",
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "data": {
+              "online_drivers": [
+                {
+                  "driver_id": 1,
+                  "name": "Rajesh Kumar",
+                  "mobile": "9876543210",
+                  "cab_no": "MH12AB1234",
+                  "last_seen": "2026-02-02T10:30:45+00:00",
+                  "location": {
+                    "driver_id": 1,
+                    "lat": 18.5204,
+                    "lng": 73.8567,
+                    "accuracy": 10,
+                    "speed": 2.5,
+                    "bearing": 120,
+                    "recorded_at": "2026-02-02T10:30:45+00:00"
+                  }
+                }
+              ],
+              "count": 1
+            }
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/admin/routes/{route_no}/driver-location",
+          "name": "Get Route Driver Location (Admin)",
+          "description": "Admin views the assigned driver's location for a specific route",
+          "authentication": true,
+          "role": "admin",
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "data": {
+              "driver_id": 1,
+              "lat": 18.5204,
+              "lng": 73.8567,
+              "accuracy": 10,
+              "speed": 2.5,
+              "bearing": 120,
+              "recorded_at": "2026-02-02T10:30:45+00:00"
+            }
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/employee/trips/{route_no}/driver-location",
+          "name": "Get Driver Location (Employee)",
+          "description": "Employee views the driver's live location for their trip",
+          "authentication": true,
+          "role": "employee",
+          "queryParams": [
+            {
+              "name": "employee_id",
+              "type": "integer",
+              "required": true,
+              "description": "Employee ID (must be trip member)"
+            }
+          ],
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "data": {
+              "has_location": true,
+              "location": {
+                "driver_id": 1,
+                "lat": 18.5204,
+                "lng": 73.8567,
+                "accuracy": 10,
+                "speed": 2.5,
+                "bearing": 120,
+                "recorded_at": "2026-02-02T10:30:45+00:00"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "admin_integration": {
+      "name": "Admin Trip Management (OTP Integrated)",
+      "description": "Existing admin endpoints with OTP integration",
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/api/admin/groups/create-and-assign",
+          "name": "Create & Assign Trip (with OTPs)",
+          "description": "Create trip group, assign driver, generate route, compute route, GENERATE OTPs automatically",
+          "authentication": true,
+          "role": "admin",
+          "requestBody": {
+            "admin_id": 1,
+            "operation": "pickup",
+            "trip_time": "09:30",
+            "vehicle_type": 6,
+            "driver_id": 12,
+            "origin_office": {
+              "lat": 18.5204,
+              "lng": 73.8567
+            },
+            "optimize_route": true
+          },
+          "responseCode": 200,
+          "responseExample": {
+            "success": true,
+            "message": "Trips created & assigned.",
+            "data": [
+              {
+                "trip_id": 1,
+                "route_no": "ABC1234567",
+                "operation": "pickup",
+                "trip_time": "09:30",
+                "vehicle_type": 6,
+                "driver_id": 12,
+                "members": [1, 2, 3, 4, 5, 6],
+                "route": {
+                  "total_km": 12.5,
+                  "polyline": "...",
+                  "estimated_duration_minutes": 45
+                },
+                "otps": {
+                  "trip_id": 1,
+                  "start_otp": "123456",
+                  "end_otp": "654321",
+                  "expires_in_minutes": 5,
+                  "expires_at": "2026-02-02T10:35:00+00:00"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "testing_workflow": {
+    "step_1": "Admin creates trip via POST /api/admin/groups/create-and-assign → Get trip_id, route_no, start_otp, end_otp",
+    "step_2": "Driver sends GPS POST /api/driver/{driver_id}/gps → every 5-10 seconds (simulated)",
+    "step_3": "Driver verifies start OTP POST /api/driver/{driver_id}/trip/{trip_id}/otp/verify → Trip status: started",
+    "step_4": "Employee checks location GET /api/employee/trips/{route_no}/driver-location → Returns driver GPS coords",
+    "step_5": "Admin views online drivers GET /api/admin/drivers/online → List all tracking drivers",
+    "step_6": "Driver verifies end OTP POST /api/driver/{driver_id}/trip/{trip_id}/otp/verify → Trip status: completed"
+  },
+  "database_changes": {
+    "new_tables": [
+      "trip_otps",
+      "driver_locations",
+      "otp_audit_log"
+    ],
+    "modified_tables": [
+      "drivers (added: is_online, last_seen)",
+      "trips (added: supports OTP workflow)"
+    ]
+  }
+}

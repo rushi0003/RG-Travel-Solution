@@ -1,0 +1,17 @@
+{
+  "source_directories": [
+    ".",
+    "rg_travel_backend"
+  ],
+  "search_path": [
+    "rg_travel_backend/venv/Lib/site-packages",
+    "rg_travel_backend"
+  ],
+  "site_package_search_strategy": "all",
+  "exclude": [
+    ".*/rg_travel_flutter/.*",
+    ".*/docs/.*",
+    ".*/__pycache__/.*"
+  ],
+  "python_version": "3.10"
+}

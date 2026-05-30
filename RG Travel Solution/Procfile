@@ -1,0 +1,1 @@
+web: cd rg_travel_backend && gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:$PORT wsgi:app

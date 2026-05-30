@@ -1,0 +1,66 @@
+name: rg_travel_flutter
+description: RG Travel Solution - Commute Management System (Admin/Driver/Employee)
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # -------------------- NETWORK --------------------
+  http: ^1.2.2
+  socket_io_client: ^2.0.3+1
+
+  # -------------------- STATE / STORAGE --------------------
+  shared_preferences: ^2.3.2
+  path_provider: ^2.1.4
+
+  # -------------------- MAPS / LOCATION / TRACKING --------------------
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  geolocator: ^13.0.1
+  geocoding: ^3.0.0
+
+  # -------------------- UI / UTILITIES --------------------
+  intl: ^0.19.0
+  url_launcher: ^6.3.0
+  flutter_svg: ^2.0.10+1
+  pdf: ^3.11.1
+
+  # Optional: smooth UI effects (safe)
+  shimmer: ^3.0.0
+
+  # Optional: JSON helpers (if you want strongly typed models)
+  # freezed_annotation: ^2.4.4
+  # json_annotation: ^4.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+  # -------------------- TESTING --------------------
+  mocktail: ^1.0.4
+  http_mock_adapter: ^0.6.1
+  shared_preferences_platform_interface: ^2.4.1
+
+  # Optional: codegen (only if you use freezed/json_serializable)
+  # build_runner: ^2.4.12
+  # json_serializable: ^6.8.0
+  # freezed: ^2.5.7
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    # Temporarily remove background image to avoid web asset load errors
+    - assets/images/background.png
+    - assets/images/logo.png
+
+  # Note: font assets removed temporarily to prevent font loading errors on web.
+  # If you have valid font files, re-add them here and run `flutter pub get`.

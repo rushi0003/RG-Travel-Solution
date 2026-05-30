@@ -1,0 +1,39 @@
+# backend/requirements.txt
+# RG Travel Solution (Flask + SQLite + CORS + Google Maps integration)
+
+# ----------------------------
+# Core Backend (Flask)
+# ----------------------------
+Flask==3.0.3
+flask-cors==4.0.1
+flask-socketio==5.3.6
+eventlet==0.36.1
+
+# ----------------------------
+# HTTP client (for Google Maps APIs)
+# ----------------------------
+requests==2.32.3
+
+# ----------------------------
+# Production WSGI server (pick one)
+# ----------------------------
+gunicorn==22.0.0; platform_system != "Windows"
+waitress==3.0.0; platform_system == "Windows"
+
+# ----------------------------
+# Optional: .env support (recommended)
+# ----------------------------
+python-dotenv==1.0.1
+
+# ----------------------------
+# Optional: Better password hashing (recommended for production)
+# If you keep sha256 hashing from utils/security.py, you can skip this.
+# ----------------------------
+bcrypt==4.2.0
+
+# ----------------------------
+# Optional: Date/Time Zone support for older Python (<3.9)
+# If your Python is 3.9+ you can skip this.
+# ----------------------------
+backports.zoneinfo==0.2.1; python_version < "3.9"
+PyJWT==2.8.0

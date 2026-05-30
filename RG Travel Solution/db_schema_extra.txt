@@ -1,0 +1,20 @@
+
+--- driver_vehicle_swap_requests columns ---
+Table 'driver_vehicle_swap_requests' does not exist.
+
+--- swap_requests columns ---
+(0, 'id', 'INTEGER', 0, None, 1)
+(1, 'trip_id', 'INTEGER', 1, None, 0)
+(2, 'old_driver_id', 'TEXT', 1, None, 0)
+(3, 'new_driver_id', 'TEXT', 0, None, 0)
+(4, 'new_driver_name', 'TEXT', 0, None, 0)
+(5, 'new_driver_mobile', 'TEXT', 0, None, 0)
+(6, 'new_cab_no', 'TEXT', 0, None, 0)
+(7, 'proof_image_path', 'TEXT', 0, None, 0)
+(8, 'note', 'TEXT', 0, None, 0)
+(9, 'status', 'TEXT', 1, "'pending'", 0)
+(10, 'admin_notes', 'TEXT', 0, None, 0)
+(11, 'reviewed_by', 'TEXT', 0, None, 0)
+(12, 'reviewed_at', 'TEXT', 0, None, 0)
+(13, 'created_at', 'TEXT', 1, None, 0)
+(14, 'updated_at', 'TEXT', 1, None, 0)

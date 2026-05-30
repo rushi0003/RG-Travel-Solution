@@ -1,0 +1,483 @@
+{
+  "title": "RG Travel Solution - Complete Setup & Troubleshooting Guide",
+  "version": "1.0",
+  "lastUpdated": "2026-02-01",
+  "sections": [
+    {
+      "name": "Project Overview",
+      "content": {
+        "description": "RG Travel Solution is a complete transportation management system for employee commuting",
+        "stack": {
+          "backend": "Python Flask (REST API)",
+          "frontend": "Flutter/Dart (Web + Mobile)",
+          "database": "SQLite 3",
+          "hosting": "Self-hosted or cloud-ready"
+        },
+        "features": [
+          "Admin dashboard for trip management",
+          "Auto employee grouping by location",
+          "Driver assignment and tracking",
+          "Live location updates",
+          "OTP verification for trip start/end",
+          "Employee absence tracking",
+          "Complete trip history"
+        ]
+      }
+    },
+    {
+      "name": "Installation Steps",
+      "subsections": [
+        {
+          "platform": "Windows",
+          "steps": [
+            {
+              "step": 1,
+              "title": "Install Python",
+              "instructions": [
+                "Download Python 3.8+ from https://python.org",
+                "During installation, CHECK 'Add Python to PATH'",
+                "Click Install"
+              ]
+            },
+            {
+              "step": 2,
+              "title": "Clone/Download Project",
+              "instructions": [
+                "Download RG_TRAVEL_SOLUTION folder",
+                "Extract to a folder (e.g., C:\\Users\\YourName\\Desktop\\RG Travel Solution)"
+              ]
+            },
+            {
+              "step": 3,
+              "title": "Open Command Prompt",
+              "instructions": [
+                "Navigate to project folder: cd C:\\Users\\YourName\\Desktop\\RG Travel Solution",
+                "Or use: Right-click folder > Open in Terminal"
+              ]
+            },
+            {
+              "step": 4,
+              "title": "Create Virtual Environment",
+              "command": "python -m venv venv"
+            },
+            {
+              "step": 5,
+              "title": "Activate Virtual Environment",
+              "command": "venv\\Scripts\\activate",
+              "note": "You should see (venv) before command prompt"
+            },
+            {
+              "step": 6,
+              "title": "Install Dependencies",
+              "command": "pip install -r rg_travel_backend/requirements.txt"
+            },
+            {
+              "step": 7,
+              "title": "Create .env File",
+              "instructions": [
+                "Copy .env.example to .env",
+                "Edit .env with your settings",
+                "At minimum, set: RG_GOOGLE_MAPS_API_KEY"
+              ]
+            },
+            {
+              "step": 8,
+              "title": "Run Backend",
+              "command": "python rg_travel_backend/app.py",
+              "expectedOutput": "Running on http://0.0.0.0:5000"
+            },
+            {
+              "step": 9,
+              "title": "Test Backend",
+              "command": "curl http://localhost:5000/api/health",
+              "expectedResponse": "{\"success\": true, \"data\": {\"status\": \"ok\"}}"
+            }
+          ]
+        },
+        {
+          "platform": "macOS",
+          "steps": [
+            {
+              "step": 1,
+              "title": "Install Python",
+              "command": "brew install python3",
+              "prerequisite": "Install Homebrew if not present: /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+            },
+            {
+              "step": 2,
+              "title": "Clone/Download Project",
+              "instructions": [
+                "Download RG_TRAVEL_SOLUTION folder",
+                "Extract to folder (e.g., ~/Desktop/RG Travel Solution)"
+              ]
+            },
+            {
+              "step": 3,
+              "title": "Open Terminal",
+              "instructions": [
+                "cd ~/Desktop/RG Travel Solution",
+                "Or: Command+Space, type 'Terminal', press Enter"
+              ]
+            },
+            {
+              "step": 4,
+              "title": "Create Virtual Environment",
+              "command": "python3 -m venv venv"
+            },
+            {
+              "step": 5,
+              "title": "Activate Virtual Environment",
+              "command": "source venv/bin/activate"
+            },
+            {
+              "step": 6,
+              "title": "Install Dependencies",
+              "command": "pip install -r rg_travel_backend/requirements.txt"
+            },
+            {
+              "step": 7,
+              "title": "Setup .env",
+              "command": "cp .env.example .env && nano .env"
+            },
+            {
+              "step": 8,
+              "title": "Run Backend",
+              "command": "python rg_travel_backend/app.py"
+            },
+            {
+              "step": 9,
+              "title": "Test Backend",
+              "command": "curl http://localhost:5000/api/health"
+            }
+          ]
+        },
+        {
+          "platform": "Linux (Ubuntu/Debian)",
+          "steps": [
+            {
+              "step": 1,
+              "title": "Install Python",
+              "command": "sudo apt-get update && sudo apt-get install python3-pip python3-venv"
+            },
+            {
+              "step": 2,
+              "title": "Download Project",
+              "instructions": [
+                "Extract RG_TRAVEL_SOLUTION to ~/RG Travel Solution"
+              ]
+            },
+            {
+              "step": 3,
+              "title": "Open Terminal",
+              "command": "cd ~/RG Travel Solution"
+            },
+            {
+              "step": 4,
+              "title": "Create Virtual Environment",
+              "command": "python3 -m venv venv"
+            },
+            {
+              "step": 5,
+              "title": "Activate Virtual Environment",
+              "command": "source venv/bin/activate"
+            },
+            {
+              "step": 6,
+              "title": "Install Dependencies",
+              "command": "pip install -r rg_travel_backend/requirements.txt"
+            },
+            {
+              "step": 7,
+              "title": "Setup .env",
+              "command": "cp .env.example .env && nano .env"
+            },
+            {
+              "step": 8,
+              "title": "Run Backend",
+              "command": "python3 rg_travel_backend/app.py"
+            },
+            {
+              "step": 9,
+              "title": "Test Backend",
+              "command": "curl http://localhost:5000/api/health"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Flutter Setup",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Install Flutter",
+          "instructions": [
+            "Download from: https://flutter.dev/docs/get-started/install",
+            "Follow platform-specific instructions",
+            "Run: flutter doctor (to verify installation)"
+          ]
+        },
+        {
+          "step": 2,
+          "title": "Navigate to Flutter Project",
+          "command": "cd rg_travel_flutter"
+        },
+        {
+          "step": 3,
+          "title": "Get Dependencies",
+          "command": "flutter pub get"
+        },
+        {
+          "step": 4,
+          "title": "Update API Config",
+          "file": "lib/core/config/api_config.dart",
+          "change": "Set baseUrl to http://10.0.2.2:5000 (for Android) or http://localhost:5000 (for iOS)"
+        },
+        {
+          "step": 5,
+          "title": "Run App",
+          "command": "flutter run"
+        }
+      ]
+    },
+    {
+      "name": "Database Setup",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Database Initialization",
+          "description": "Database is created automatically on first run",
+          "file": "rg_travel.db",
+          "location": "rg_travel_backend/"
+        },
+        {
+          "step": 2,
+          "title": "Seed Demo Data",
+          "commands": [
+            "curl -X POST http://localhost:5000/api/seed/admin",
+            "curl -X POST http://localhost:5000/api/seed/drivers",
+            "curl -X POST http://localhost:5000/api/seed/employees"
+          ]
+        },
+        {
+          "step": 3,
+          "title": "Verify Database",
+          "command": "curl http://localhost:5000/api/health/db",
+          "expectedResponse": "Database connected with 7 tables"
+        }
+      ]
+    }
+  ],
+  "quickStart": {
+    "description": "Get everything running in 5 minutes",
+    "steps": [
+      {
+        "action": "Terminal 1: Start Backend",
+        "commands": [
+          "cd rg_travel_backend",
+          "python -m venv venv",
+          "source venv/bin/activate  # or venv\\Scripts\\activate on Windows",
+          "pip install -r requirements.txt",
+          "cp ../.env.example ../.env",
+          "python app.py"
+        ],
+        "expectedOutput": "Running on http://0.0.0.0:5000"
+      },
+      {
+        "action": "Terminal 2: Seed Data",
+        "commands": [
+          "curl -X POST http://localhost:5000/api/seed/admin",
+          "curl -X POST http://localhost:5000/api/seed/drivers",
+          "curl -X POST http://localhost:5000/api/seed/employees"
+        ],
+        "expectedOutput": "Each returns success with credentials"
+      },
+      {
+        "action": "Terminal 3: Run Flutter",
+        "commands": [
+          "cd rg_travel_flutter",
+          "flutter run"
+        ],
+        "expectedOutput": "App running on emulator/device"
+      },
+      {
+        "action": "Test in Flutter App",
+        "instructions": [
+          "Login with: mobile=0000000001, password=admin123",
+          "Or use seeded driver/employee credentials"
+        ]
+      }
+    ]
+  },
+  "troubleshooting": {
+    "issues": [
+      {
+        "issue": "Python: command not found",
+        "cause": "Python not installed or not in PATH",
+        "solutions": [
+          "Install Python from https://python.org",
+          "On Windows: Check 'Add Python to PATH' during installation",
+          "Restart terminal after installation",
+          "Try: python3 instead of python"
+        ]
+      },
+      {
+        "issue": "ModuleNotFoundError: No module named 'flask'",
+        "cause": "Dependencies not installed",
+        "solutions": [
+          "Run: pip install -r requirements.txt",
+          "Verify virtual environment is activated (should see (venv) in terminal)",
+          "Try: pip install flask flask-cors"
+        ]
+      },
+      {
+        "issue": "Connection refused at http://localhost:5000",
+        "cause": "Backend not running",
+        "solutions": [
+          "Verify terminal shows: 'Running on http://0.0.0.0:5000'",
+          "Check port 5000 is not used by another process",
+          "Try different port: RG_PORT=8000 in .env"
+        ]
+      },
+      {
+        "issue": "Flutter: 'Failed to fetch' error",
+        "cause": "Wrong base URL or CORS issue",
+        "solutions": [
+          "Android emulator: Use http://10.0.2.2:5000",
+          "iOS simulator: Use http://localhost:5000",
+          "Verify CORS enabled: RG_CORS_ENABLED=1 in .env",
+          "Check firewall allows port 5000"
+        ]
+      },
+      {
+        "issue": "Database permission denied",
+        "cause": "Insufficient file permissions",
+        "solutions": [
+          "Run with sudo: sudo python app.py",
+          "Change database location: RG_DB_PATH=/tmp/rg_travel.db",
+          "Check directory is writable: chmod 755 rg_travel_backend/"
+        ]
+      },
+      {
+        "issue": "Google Maps API errors",
+        "cause": "Invalid or missing API key",
+        "solutions": [
+          "Get API key from: https://console.cloud.google.com",
+          "Enable Directions, Distance Matrix, and Geocoding APIs",
+          "Add key to .env: RG_GOOGLE_MAPS_API_KEY=YOUR_KEY"
+        ]
+      },
+      {
+        "issue": "Port 5000 already in use",
+        "cause": "Another application using port",
+        "solutions": [
+          "Change port in .env: RG_PORT=8000",
+          "Find process using port: lsof -i :5000 (macOS/Linux) or netstat -ano | findstr :5000 (Windows)",
+          "Kill process if needed"
+        ]
+      },
+      {
+        "issue": "CORS error when calling API",
+        "cause": "CORS not enabled or wrong origin",
+        "solutions": [
+          "Ensure RG_CORS_ENABLED=1",
+          "Set RG_CORS_ORIGINS=* for development",
+          "Verify correct base URL in Flutter"
+        ]
+      },
+      {
+        "issue": "401 Unauthorized on API call",
+        "cause": "Invalid or expired token",
+        "solutions": [
+          "Login again to get fresh token",
+          "Verify token is sent in Authorization header",
+          "Check token hasn't expired (RG_TOKEN_TTL_MINUTES)"
+        ]
+      },
+      {
+        "issue": "Database file is locked",
+        "cause": "Multiple processes accessing database",
+        "solutions": [
+          "Restart backend server",
+          "Close other database connections",
+          "Check for hanging processes: ps aux | grep python (Unix)"
+        ]
+      }
+    ]
+  },
+  "fileStructure": {
+    "root": [
+      ".env - Configuration (copy from .env.example)",
+      ".gitignore - Git ignore rules",
+      "README.md - Project documentation",
+      "rg_travel_backend/ - Flask backend",
+      "rg_travel_flutter/ - Flutter frontend",
+      "docs/ - Additional documentation"
+    ],
+    "backend": [
+      "app.py - Main Flask app entry point",
+      "wsgi.py - WSGI entry for production",
+      "requirements.txt - Python dependencies",
+      "config/ - Configuration modules",
+      "db/ - Database initialization and schema",
+      "routes/ - API endpoint definitions",
+      "services/ - Business logic",
+      "repositories/ - Database queries",
+      "utils/ - Helper utilities",
+      "seeds/ - Demo data generation"
+    ],
+    "frontend": [
+      "lib/main.dart - App entry point",
+      "lib/app.dart - App configuration",
+      "lib/core/ - Core utilities and config",
+      "lib/models/ - Data models",
+      "lib/services/ - API services",
+      "lib/screens/ - UI screens",
+      "lib/widgets/ - Reusable components",
+      "lib/state/ - State management",
+      "pubspec.yaml - Flutter dependencies"
+    ]
+  },
+  "next": [
+    {
+      "when": "Backend is running",
+      "action": "Test with: curl http://localhost:5000/api/health",
+      "expectedResponse": "{\"success\": true}"
+    },
+    {
+      "when": "Backend tests pass",
+      "action": "Seed demo data with: curl -X POST http://localhost:5000/api/seed/admin",
+      "note": "Save credentials for login testing"
+    },
+    {
+      "when": "Demo data created",
+      "action": "Run Flutter app: flutter run",
+      "testCredentials": "Use seeded mobile/password to login"
+    },
+    {
+      "when": "Flutter runs successfully",
+      "action": "Test complete workflow: login → create trip → assign driver → live tracking",
+      "reference": "See API_TESTING_GUIDE.md"
+    }
+  ],
+  "deployment": {
+    "development": "python app.py (local machine)",
+    "staging": "Gunicorn on cloud VM",
+    "production": "Gunicorn + Nginx reverse proxy on cloud"
+  },
+  "support": {
+    "documentation": [
+      "API_ENDPOINTS.json - All API references",
+      "DATABASE_SCHEMA.json - Database schema",
+      "API_EXAMPLES.json - Testing examples",
+      "CONFIGURATION.json - Environment variables",
+      "API_TESTING_GUIDE.md - Complete testing guide"
+    ],
+    "common": [
+      "Backend not responding: Check firewall/port",
+      "Flutter connection error: Verify baseUrl and CORS",
+      "Database error: Check file permissions",
+      "API returns 500: Check backend logs"
+    ]
+  }
+}

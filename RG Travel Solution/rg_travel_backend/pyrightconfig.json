@@ -1,0 +1,40 @@
+{
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "venv"
+    ],
+    "venvPath": ".",
+    "venv": "venv",
+    "pythonVersion": "3.10",
+    "pythonPlatform": "Windows",
+    "extraPaths": [
+        ".",
+        "./routes",
+        "./services",
+        "./utils",
+        "./db",
+        "./config",
+        "./seeds"
+    ],
+    "executionEnvironments": [
+        {
+            "root": ".",
+            "extraPaths": [
+                ".",
+                "./routes",
+                "./services",
+                "./utils",
+                "./db",
+                "./config",
+                "./seeds"
+            ]
+        }
+    ],
+    "reportMissingImports": false,
+    "reportMissingModuleSource": false,
+    "reportMissingTypeStubs": false
+}

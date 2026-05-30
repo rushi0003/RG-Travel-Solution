@@ -1,0 +1,629 @@
+{
+  "title": "RG Travel Solution - Database Schema Reference",
+  "version": "1.0",
+  "databaseType": "SQLite 3",
+  "databaseFile": "rg_travel.db",
+  "lastUpdated": "2026-02-01",
+  "tables": {
+    "admins": {
+      "description": "Administrator accounts and office information",
+      "primaryKey": "id",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "constraints": "PRIMARY KEY AUTOINCREMENT",
+          "nullable": false,
+          "description": "Unique admin identifier"
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Admin's full name"
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "constraints": "UNIQUE",
+          "nullable": true,
+          "description": "Admin's email address (optional)"
+        },
+        {
+          "name": "mobile",
+          "type": "TEXT",
+          "constraints": "NOT NULL UNIQUE",
+          "nullable": false,
+          "description": "10-digit mobile number (unique login identifier)"
+        },
+        {
+          "name": "pass_salt",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Password salt for secure hashing"
+        },
+        {
+          "name": "pass_hash",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "SHA256 hashed password"
+        },
+        {
+          "name": "office_name",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Office/branch name"
+        },
+        {
+          "name": "office_address",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Full office address"
+        },
+        {
+          "name": "office_lat",
+          "type": "REAL",
+          "nullable": true,
+          "description": "Office latitude coordinate"
+        },
+        {
+          "name": "office_lng",
+          "type": "REAL",
+          "nullable": true,
+          "description": "Office longitude coordinate"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Account creation timestamp (ISO 8601)"
+        }
+      ],
+      "sampleQuery": "SELECT id, name, mobile, office_name FROM admins WHERE id = 1;",
+      "indexes": ["idx_admins_mobile"]
+    },
+    "drivers": {
+      "description": "Approved driver profiles with vehicle information",
+      "primaryKey": "id",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "constraints": "PRIMARY KEY AUTOINCREMENT",
+          "nullable": false,
+          "description": "Unique driver identifier"
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Driver's full name"
+        },
+        {
+          "name": "mobile",
+          "type": "TEXT",
+          "constraints": "NOT NULL UNIQUE",
+          "nullable": false,
+          "description": "10-digit mobile number (login identifier)"
+        },
+        {
+          "name": "pass_salt",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Password salt"
+        },
+        {
+          "name": "pass_hash",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "SHA256 hashed password"
+        },
+        {
+          "name": "dl_no",
+          "type": "TEXT",
+          "constraints": "UNIQUE",
+          "nullable": true,
+          "description": "Driving license number"
+        },
+        {
+          "name": "dl_expiry_date",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "DL expiry date (YYYY-MM-DD)"
+        },
+        {
+          "name": "vehicle_no",
+          "type": "TEXT",
+          "constraints": "UNIQUE",
+          "nullable": true,
+          "description": "Vehicle registration number"
+        },
+        {
+          "name": "vehicle_type",
+          "type": "TEXT",
+          "constraints": "CHECK(vehicle_type IN ('4', '6'))",
+          "nullable": true,
+          "description": "Vehicle capacity (4 or 6 seater)"
+        },
+        {
+          "name": "rc_expiry_date",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Registration Certificate expiry (YYYY-MM-DD)"
+        },
+        {
+          "name": "hometown",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Driver's hometown/address"
+        },
+        {
+          "name": "is_online",
+          "type": "BOOLEAN",
+          "constraints": "DEFAULT 0",
+          "nullable": false,
+          "description": "Current online status"
+        },
+        {
+          "name": "last_seen",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Last activity timestamp (ISO 8601)"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Account creation timestamp"
+        }
+      ],
+      "sampleQuery": "SELECT id, name, mobile, vehicle_no, is_online FROM drivers WHERE vehicle_type = '4' AND is_online = 1;",
+      "indexes": ["idx_drivers_mobile", "idx_drivers_vehicle_no"]
+    },
+    "employees": {
+      "description": "Approved employee profiles with drop location",
+      "primaryKey": "id",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "constraints": "PRIMARY KEY AUTOINCREMENT",
+          "nullable": false,
+          "description": "Unique employee identifier"
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Employee's full name"
+        },
+        {
+          "name": "mobile",
+          "type": "TEXT",
+          "constraints": "NOT NULL UNIQUE",
+          "nullable": false,
+          "description": "10-digit mobile number (login identifier)"
+        },
+        {
+          "name": "pass_salt",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Password salt"
+        },
+        {
+          "name": "pass_hash",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "SHA256 hashed password"
+        },
+        {
+          "name": "employee_code",
+          "type": "TEXT",
+          "constraints": "UNIQUE",
+          "nullable": true,
+          "description": "Unique employee code from HR system"
+        },
+        {
+          "name": "address",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Employee's drop location address"
+        },
+        {
+          "name": "lat",
+          "type": "REAL",
+          "nullable": true,
+          "description": "Drop location latitude"
+        },
+        {
+          "name": "lng",
+          "type": "REAL",
+          "nullable": true,
+          "description": "Drop location longitude"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Account creation timestamp"
+        }
+      ],
+      "sampleQuery": "SELECT id, name, mobile, employee_code, lat, lng FROM employees WHERE id = 1;",
+      "indexes": ["idx_employees_mobile", "idx_employees_employee_code"]
+    },
+    "sessions": {
+      "description": "Active authentication sessions/tokens",
+      "primaryKey": "id",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "constraints": "PRIMARY KEY AUTOINCREMENT",
+          "nullable": false,
+          "description": "Unique session identifier"
+        },
+        {
+          "name": "token",
+          "type": "TEXT",
+          "constraints": "NOT NULL UNIQUE",
+          "nullable": false,
+          "description": "Bearer token value"
+        },
+        {
+          "name": "role",
+          "type": "TEXT",
+          "constraints": "NOT NULL CHECK(role IN ('admin', 'driver', 'employee'))",
+          "nullable": false,
+          "description": "User role type"
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "FK to admins/drivers/employees"
+        },
+        {
+          "name": "expires_at",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Token expiry timestamp (ISO 8601)"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Token creation timestamp"
+        }
+      ],
+      "sampleQuery": "SELECT token, user_id, role FROM sessions WHERE token = ? AND expires_at > datetime('now');",
+      "indexes": ["idx_sessions_token"]
+    },
+    "route_numbers": {
+      "description": "Unique route numbers (10 chars) per day for trip identification",
+      "primaryKey": "id",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "constraints": "PRIMARY KEY AUTOINCREMENT",
+          "nullable": false,
+          "description": "Unique identifier"
+        },
+        {
+          "name": "route_no",
+          "type": "TEXT",
+          "constraints": "NOT NULL UNIQUE",
+          "nullable": false,
+          "description": "10-character unique route identifier (e.g., RG20260201A)"
+        },
+        {
+          "name": "trip_date",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Trip date (YYYY-MM-DD)"
+        },
+        {
+          "name": "admin_id",
+          "type": "INTEGER",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Admin who created this route"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Creation timestamp"
+        }
+      ],
+      "sampleQuery": "SELECT route_no FROM route_numbers WHERE trip_date = date('now') ORDER BY created_at DESC LIMIT 5;",
+      "indexes": ["idx_route_numbers_route_no", "idx_route_numbers_trip_date"]
+    },
+    "trips": {
+      "description": "Trip master records (one per route/day)",
+      "primaryKey": "id",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "constraints": "PRIMARY KEY AUTOINCREMENT",
+          "nullable": false,
+          "description": "Unique trip identifier"
+        },
+        {
+          "name": "route_no",
+          "type": "TEXT",
+          "constraints": "NOT NULL UNIQUE",
+          "nullable": false,
+          "description": "FK to route_numbers"
+        },
+        {
+          "name": "admin_id",
+          "type": "INTEGER",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Admin who created trip"
+        },
+        {
+          "name": "operation",
+          "type": "TEXT",
+          "constraints": "NOT NULL CHECK(operation IN ('pickup', 'drop'))",
+          "nullable": false,
+          "description": "Trip type (pickup or drop)"
+        },
+        {
+          "name": "trip_time",
+          "type": "TEXT",
+          "constraints": "NOT NULL",
+          "nullable": false,
+          "description": "Scheduled trip time (HH:MM format)"
+        },
+        {
+          "name": "driver_id",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": "Assigned driver (nullable until assigned)"
+        },
+        {
+          "name": "vehicle_no",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Vehicle number (cached from driver)"
+        },
+        {
+          "name": "vehicle_type",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Vehicle capacity"
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "constraints": "DEFAULT 'pending' CHECK(status IN ('pending', 'active', 'in_progress', 'completed', 'cancelled'))",
+          "nullable": false,
+          "description": "Current trip status"
+        },
+        {
+          "name": "total_km",
+          "type": "REAL",
+          "nullable": true,
+          "description": "Total distance traveled"
+        },
+        {
+          "name": "polyline",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Google Maps polyline (for route visualization)"
+        },
+        {
+          "name": "otp_start",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "OTP hash for trip start"
+        },
+        {
+          "name": "otp_start_expiry",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "OTP expiry timestamp"
+        },
+        {
+          "name": "otp_end",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "OTP hash for trip end"
+        },
+        {
+          "name": "otp_end_expiry",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "OTP expiry timestamp"
+        },
+        {
+          "name": "start_time",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Actual trip start time"
+        },
+        {
+          "name": "end_time",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Actual trip end time"
+        },
+        {
+          "name": "cancel_reason",
+          "type": "TEXT",
+          "nullable": true,
+          "description": "Reason if trip was cancelled"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Trip creation timestamp"
+        }
+      ],
+      "sampleQuery": "SELECT id, route_no, status, driver_id, start_time, end_time FROM trips WHERE status = 'in_progress' ORDER BY start_time DESC;",
+      "indexes": ["idx_trips_route_no", "idx_trips_status", "idx_trips_driver_id"]
+    },
+    "trip_employees": {
+      "description": "Many-to-many: Employees assigned to trips",
+      "primaryKey": ["trip_id", "employee_id"],
+      "columns": [
+        {
+          "name": "trip_id",
+          "type": "INTEGER",
+          "constraints": "NOT NULL FK -> trips(id)",
+          "nullable": false,
+          "description": "Trip reference"
+        },
+        {
+          "name": "employee_id",
+          "type": "INTEGER",
+          "constraints": "NOT NULL FK -> employees(id)",
+          "nullable": false,
+          "description": "Employee reference"
+        },
+        {
+          "name": "is_no_show",
+          "type": "BOOLEAN",
+          "constraints": "DEFAULT 0",
+          "nullable": false,
+          "description": "Whether employee missed the trip"
+        },
+        {
+          "name": "assigned_at",
+          "type": "TEXT",
+          "constraints": "DEFAULT CURRENT_TIMESTAMP",
+          "nullable": false,
+          "description": "Assignment timestamp"
+        }
+      ],
+      "sampleQuery": "SELECT e.id, e.name FROM employees e JOIN trip_employees te ON e.id = te.employee_id WHERE te.trip_id = 1 AND te.is_no_show = 0;",
+      "indexes": ["idx_trip_employees_employee_id"]
+    }
+  },
+  "relationships": [
+    {
+      "from": "trips",
+      "to": "admins",
+      "column": "admin_id",
+      "type": "Many-to-One",
+      "description": "Each trip belongs to one admin"
+    },
+    {
+      "from": "trips",
+      "to": "drivers",
+      "column": "driver_id",
+      "type": "Many-to-One",
+      "description": "Each trip is assigned to one driver"
+    },
+    {
+      "from": "trip_employees",
+      "to": "trips",
+      "column": "trip_id",
+      "type": "Many-to-One",
+      "description": "Each trip has many employees"
+    },
+    {
+      "from": "trip_employees",
+      "to": "employees",
+      "column": "employee_id",
+      "type": "Many-to-One",
+      "description": "Each employee can be in many trips"
+    },
+    {
+      "from": "sessions",
+      "to": "admins/drivers/employees",
+      "column": "user_id",
+      "type": "One-to-Many",
+      "description": "Users can have multiple active sessions"
+    }
+  ],
+  "constraints": {
+    "uniqueColumns": [
+      "admins.mobile",
+      "drivers.mobile",
+      "drivers.vehicle_no",
+      "employees.mobile",
+      "employees.employee_code",
+      "sessions.token",
+      "route_numbers.route_no",
+      "trips.route_no"
+    ],
+    "foreignKeys": [
+      "trips.driver_id -> drivers.id",
+      "trips.admin_id -> admins.id",
+      "trip_employees.trip_id -> trips.id",
+      "trip_employees.employee_id -> employees.id",
+      "sessions.user_id -> admins/drivers/employees"
+    ],
+    "checkConstraints": [
+      "drivers.vehicle_type IN ('4', '6')",
+      "trips.operation IN ('pickup', 'drop')",
+      "trips.status IN ('pending', 'active', 'in_progress', 'completed', 'cancelled')",
+      "sessions.role IN ('admin', 'driver', 'employee')"
+    ]
+  },
+  "indexes": {
+    "performance": [
+      "idx_admins_mobile - Fast login lookup",
+      "idx_drivers_mobile - Fast driver login",
+      "idx_drivers_vehicle_no - Vehicle availability check",
+      "idx_employees_mobile - Fast employee login",
+      "idx_employees_employee_code - HR system sync",
+      "idx_sessions_token - Authentication validation",
+      "idx_route_numbers_route_no - Unique route validation",
+      "idx_route_numbers_trip_date - Daily route lookup",
+      "idx_trips_route_no - Trip lookup by route",
+      "idx_trips_status - Active trips query",
+      "idx_trips_driver_id - Driver's trips",
+      "idx_trip_employees_employee_id - Employee's trips"
+    ]
+  },
+  "commonQueries": [
+    {
+      "name": "Authenticate User",
+      "sql": "SELECT id, name, pass_salt, pass_hash FROM admins WHERE mobile = ? UNION SELECT id, name, pass_salt, pass_hash FROM drivers WHERE mobile = ? UNION SELECT id, name, pass_salt, pass_hash FROM employees WHERE mobile = ?;"
+    },
+    {
+      "name": "Get Employee Count by Area",
+      "sql": "SELECT COUNT(DISTINCT e.id) as count, ROUND(e.lat, 2) as area FROM employees e GROUP BY ROUND(e.lat, 2);"
+    },
+    {
+      "name": "Today's Active Trips",
+      "sql": "SELECT t.id, t.route_no, t.status, d.name as driver_name, COUNT(DISTINCT te.employee_id) as employees FROM trips t LEFT JOIN drivers d ON t.driver_id = d.id LEFT JOIN trip_employees te ON t.id = te.trip_id WHERE DATE(t.created_at) = DATE('now') GROUP BY t.id;"
+    },
+    {
+      "name": "Driver's Trip History",
+      "sql": "SELECT t.id, t.route_no, t.status, t.start_time, t.end_time, t.total_km, COUNT(te.employee_id) as employee_count FROM trips t LEFT JOIN trip_employees te ON t.id = te.trip_id WHERE t.driver_id = ? GROUP BY t.id ORDER BY t.created_at DESC LIMIT 10;"
+    }
+  ],
+  "backupRecommendations": {
+    "frequency": "Daily",
+    "methods": ["SQLite3 backup command", "Copy rg_travel.db file"],
+    "retention": "30 days",
+    "location": "Separate backup directory"
+  },
+  "migrationNotes": "Schema created in single schema.sql file. Future migrations can be added to db/migrations/ folder"
+}

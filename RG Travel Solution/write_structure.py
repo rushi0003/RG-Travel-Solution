@@ -1,0 +1,592 @@
+content = r"""Desktop
+ RG Travel Solution/
+     RG Travel Solution/                   # PROJECT ROOT
+        |                                  # 123 files, 5 subdirs (confirmed on disk)
+        |----------------------------------------------------------------------
+        |  STATUS:  Phase 3 (Flutter UI) IN PROGRESS
+        |  Backend: RUNNING  -> python app.py  (port 5000)
+        |  DB:      SQLite   -> rg_travel.db  (13 tables, 604KB)
+        |  Flutter: BUILDING -> rg_travel_flutter/
+        |  Verified: 20 Feb 2026  (ALL dirs + files confirmed on disk)
+        |----------------------------------------------------------------------
+        |
+        +-- .env                        (2.4KB)
+        +-- .env.example                (2.4KB)
+        +-- .gitignore                  (3.2KB)
+        +-- .pyre_configuration         (229B)
+        +-- requirements.txt            (90B)
+        +-- __pycache__/                (1 item)
+        |
+        +-- STARTUP SCRIPTS
+        |   +-- deploy.py               (18.1KB)
+        |   +-- start-backend.bat       (2.9KB)
+        |   +-- start-backend.ps1       (3.4KB)
+        |   +-- start-flutter.bat       (1.6KB)
+        |   `-- start_server_fixed.bat  (115B)
+        |
+        +-- READING / DOCUMENTATION
+        |   +-- START_HERE.md                        (9.4KB)   PRIMARY ENTRY POINT
+        |   +-- README.md                            (12KB)
+        |   +-- README_MAIN.md                       (11.9KB)
+        |   +-- README_v2.md                         (13.8KB)
+        |   +-- README_COMPLETE.md                   (21KB)
+        |   +-- DEVELOPER_QUICK_REFERENCE.md         (11.6KB)
+        |   +-- DOCUMENTATION_HUB.md                 (10KB)
+        |   +-- PROJECT_STRUCTURE_COMPLETE.md        (41.8KB)
+        |   +-- STRUCTURE_QUICK_REFERENCE.md         (13.1KB)
+        |   +-- STRUCTURE_ANALYSIS_AND_RECOMMENDATIONS.md (14.6KB)
+        |   +-- STRUCTURE_ANALYSIS_SUMMARY.md        (11.2KB)
+        |   +-- COMPLETE_INDEX_v2.md                 (18.6KB)
+        |   +-- COMPLETE_DOCUMENTATION_INDEX.md      (10.7KB)
+        |   +-- DOCUMENTATION_INDEX_COMPLETE.md      (12.8KB)
+        |   +-- FULL_PROJECT_INDEX.md                (23.9KB)
+        |   +-- PROJECT_INDEX.md                     (13.7KB)
+        |   `-- FILE_INDEX.md                        (13.3KB)
+        |
+        +-- PHASE REPORTS
+        |   +-- PHASE_1_COMPLETION_REPORT.md         (14.2KB)
+        |   +-- PHASE_1_COMPLETE_SUMMARY.txt         (13.8KB)
+        |   +-- FINAL_STATUS_PHASE_1.md              (13.3KB)
+        |   +-- PHASE_2_COMPLETION_REPORT.md         (10.1KB)
+        |   +-- STATUS_REPORT.md                     (14.1KB)
+        |   +-- LIVE_PROJECT_STATUS.md               (11.4KB)
+        |   +-- PROJECT_RUN_STATUS.md                (6.7KB)
+        |   +-- COMPLETION_REPORT.md                 (12.2KB)
+        |   +-- FINAL_DELIVERY_REPORT.md             (14.2KB)
+        |   +-- DELIVERY_SUMMARY.md                  (16.3KB)
+        |   +-- COMPLETE_DELIVERABLES_LIST.md        (13.9KB)
+        |   +-- PROJECT_COMPLETION_SUMMARY.md        (15.4KB)
+        |   +-- PROJECT_COMPLETION_SUMMARY.txt       (6.3KB)
+        |   +-- PROJECT_UPDATE_SUMMARY_v2.md         (10.8KB)
+        |   `-- PROJECT_UPDATE_SUMMARY_FINAL.md      (16.2KB)
+        |
+        +-- IMPLEMENTATION GUIDES
+        |   +-- IMPLEMENTATION_CHECKLIST.md              (15.6KB)
+        |   +-- IMPLEMENTATION_COMPLETION_CHECKLIST.md   (17.1KB)
+        |   +-- IMPLEMENTATION_CODE_EXAMPLES.md          (31.2KB)
+        |   +-- IMPLEMENTATION_INDEX.md                  (13.9KB)
+        |   +-- IMPLEMENTATION_STATUS_COMPLETE.md        (15KB)
+        |   +-- IMPLEMENTATION_SUMMARY_ADMIN_LOGIN.md    (6.9KB)
+        |   +-- ARCHITECTURE_ANALYSIS_AND_FIXES.md       (15.9KB)
+        |   +-- WINDOWS_SETUP_GUIDE.md                   (9.8KB)
+        |   +-- QUICKSTART_GUIDE.md                      (13.7KB)
+        |   +-- QUICKSTART_AND_GUIDE.md                  (16.4KB)
+        |   +-- QUICK_START_DEPLOYMENT_GUIDE.md          (9.6KB)
+        |   +-- PRODUCTION_IMPLEMENTATION_GUIDE.md       (24.2KB)
+        |   +-- MASTER_GUIDE_COMPLETE.md                 (12KB)
+        |   +-- MASTER_CHECKLIST.md                      (13.9KB)
+        |   +-- MANIFEST.md                              (12.2KB)
+        |   +-- BACKEND_IMPROVEMENTS.md                  (7.1KB)
+        |   +-- FLUTTER_UI_UX_IMPROVEMENTS.md            (15.6KB)
+        |   +-- TRIP_MANAGEMENT_COMPLETION.md            (12.8KB)
+        |   +-- TRIP_MANAGEMENT_QUICK_REFERENCE.md       (8.4KB)
+        |   +-- TRIP_MANAGEMENT_REFACTOR.md              (11.9KB)
+        |   +-- FIXES_SUMMARY_20260203.md                (5.6KB)
+        |   +-- PROJECT_AUDIT_AND_TODO.md                (5.6KB)
+        |   +-- PROJECT_IMPLEMENTATION_NOTES.md          (5.4KB)
+        |   +-- PROJECT_COMPLETE_ANALYSIS.md             (8.2KB)
+        |   `-- HOW_TO_FIX_PYRE_ERRORS.md               (1.6KB)
+        |
+        +-- DEBUGGING & TOOLS
+        |   +-- DEBUGGING_GUIDE.md           (9.8KB)
+        |   +-- TOOLS_REFERENCE.md           (13.4KB)
+        |   +-- QUICK_REFERENCE.md           (5.9KB)
+        |   +-- SETUP_AND_TESTING_COMPLETE.md (9.2KB)
+        |   `-- DELIVERABLES.md              (12KB)
+        |
+        +-- ADMIN & CREDENTIALS
+        |   +-- ADMIN_CREDENTIALS.md         (4.2KB)
+        |   `-- QUICK_ADMIN_LOGIN.md         (1.3KB)
+        |
+        +-- API & DATABASE SPECS
+        |   +-- API_ENDPOINTS.json           (32.5KB)
+        |   +-- API_ENDPOINTS_COMPLETE.json  (29.3KB)
+        |   +-- API_EXAMPLES.json            (19.2KB)
+        |   +-- PHASE_2_API_ENDPOINTS.md     (13.1KB)
+        |   +-- PHASE_2_API_ENDPOINTS.json   (12.6KB)
+        |   +-- DATABASE_SCHEMA.json         (20.3KB)
+        |   +-- CONFIGURATION.json           (11.8KB)
+        |   +-- SETUP_GUIDE.json             (16.3KB)
+        |   +-- PROJECT_INVENTORY.json       (17.3KB)
+        |   +-- API_TESTING_GUIDE.md         (16.8KB)
+        |   +-- FLUTTER_INTEGRATION_GUIDE.md (21.4KB)
+        |   `-- DATABASE_OPERATIONS_GUIDE.md (12.9KB)
+        |
+        +-- UTILITY / INSPECTION SCRIPTS
+        |   +-- add_column_trips.py          (709B)
+        |   +-- check_schema.py              (732B)
+        |   +-- final_verification.py        (3KB)
+        |   +-- fix_admin_login.py           (3.5KB)
+        |   +-- flutter_fix_status.py        (2.5KB)
+        |   +-- inspect_db.py               (1.6KB)
+        |   +-- inspect_extra_tables.py      (915B)
+        |   +-- inspect_schema.py            (1.6KB)
+        |   +-- inspect_trips.py             (875B)
+        |   +-- recreate_db.py               (1.1KB)
+        |   +-- remove_unreachable_code.py   (725B)
+        |   +-- seed_db.py                   (1.8KB)
+        |   +-- verify_backend.py            (1.6KB)
+        |   `-- verify_raw.py                (477B)
+        |
+        +-- TEST SCRIPTS (ROOT LEVEL)
+        |   +-- test_admin_exists.py         (825B)
+        |   +-- test_admin_workflow.py       (4.7KB)
+        |   +-- test_api.py                  (209B)
+        |   +-- test_backend.py              (5.1KB)
+        |   +-- test_comprehensive.py        (4KB)
+        |   +-- test_comprehensive_v2.py     (13.9KB)
+        |   +-- test_db.py                   (907B)
+        |   +-- test_db_query.py             (696B)
+        |   +-- test_fixed_endpoints.py      (833B)
+        |   +-- test_login_debug.py          (1KB)
+        |   +-- test_password_hash.py        (846B)
+        |   +-- test_schema.py               (350B)
+        |   +-- test_schema2.py              (356B)
+        |   `-- test_trip_endpoints.py       (7.1KB)
+        |
+        +-- LOGS & DUMPS (ROOT)
+        |   +-- db_schema.txt                (1.5KB)
+        |   +-- db_schema_extra.txt          (744B)
+        |   +-- db_schema_trips.txt          (1.1KB)
+        |   +-- output.txt                   (2.9KB)
+        |   +-- test_debug.log               (6.4KB)
+        |   +-- test_output.txt              (6.6KB)
+        |   +-- test_result.log              (8.9KB)
+        |   `-- test_result.txt              (7.3KB)
+        |
+        +-- tests/                     # root tests dir - 1 file
+        |   `-- verify_step_15_csr.py        (6.7KB)
+        |
+        `-- docs/                      # root docs dir - 3 files
+            +-- API_DOCS.md                  (794B)
+            +-- DB_SCHEMA.md                 (7.7KB)
+            `-- FLOW.md                      (1.9KB)
+
+        |----------------------------------------------------------------------
+
+        +-- rg_travel_backend/               # Flask Backend  RUNNING
+        |   |                                # 14 subdirs, 70 files total (confirmed)
+        |   |
+        |   +-- app.py                       (65.4KB)  MAIN ENTRY POINT - blueprints
+        |   +-- wsgi.py                      (6.6KB)   production WSGI
+        |   +-- __init__.py                  (3.1KB)   create_app()
+        |   +-- requirements.txt             (1.2KB)
+        |   +-- rg_travel.db                 (604KB)   [!] DO NOT COMMIT - SQLite DB
+        |   +-- ADMIN_LOGIN_IMPLEMENTATION.md (6.7KB)
+        |   +-- app_simple.py                (4KB)
+        |   +-- run_backend.py               (4.9KB)
+        |   +-- pyrightconfig.json           (299B)
+        |   +-- .pyre_configuration          (115B)
+        |   +-- test_driver_apis.ps1         (4.9KB)   PowerShell API tests
+        |   |
+        |   +-- [!] SOS TEST DATABASES (safe to delete)
+        |   |   +-- test_sos_7e481c1c.db     (408KB)
+        |   |   +-- test_sos_c123bc62.db     (408KB)
+        |   |   +-- test_sos_eb326872.db     (408KB)
+        |   |   +-- test_sos_f9d622c8.db     (408KB)
+        |   |   +-- test_sos_fb07464a.db     (408KB)
+        |   |   `-- test_sos_rating_simple.db (408KB)
+        |   |
+        |   +-- BACKEND LOGS & OUTPUT
+        |   |   +-- app_log.txt              (5.8KB)
+        |   |   +-- backend_result.txt       (514B)
+        |   |   +-- backend_test.log         (2.3KB)
+        |   |   +-- db_dump.txt              (9.3KB)
+        |   |   +-- db_dump_utf8.txt         (4.6KB)
+        |   |   +-- debug_verify.log         (215B)
+        |   |   +-- final_test.txt           (3KB)
+        |   |   +-- schema_dump.txt          (248B)
+        |   |   +-- schema_report.txt        (2.7KB)
+        |   |   +-- server.log               (1.9KB)
+        |   |   +-- test_log.txt             (202B)
+        |   |   +-- test_log_full.txt        (3.4KB)
+        |   |   +-- test_out.txt             (2.1KB)
+        |   |   +-- test_out_v2.txt          (2.7KB)
+        |   |   +-- test_output.txt          (4.4KB)
+        |   |   +-- test_result.txt          (3.6KB)
+        |   |   `-- test_result_verbose.txt  (3.6KB)
+        |   |
+        |   +-- LOOSE SQL FILES
+        |   |   +-- add_review_fields_to_requests.sql  (247B)
+        |   |   +-- add_vehicle_type_to_requests.sql   (361B)
+        |   |   `-- create_change_request_tables.sql   (809B)
+        |   |
+        |   +-- CACHE / HIDDEN
+        |   |   +-- .pytest_cache/
+        |   |   +-- .vscode/
+        |   |   `-- __pycache__/             (2 items)
+        |   |
+        |   +-- config/                      # 3 real files + __pycache__
+        |   |   +-- __init__.py              (3.6KB)
+        |   |   +-- settings.py              (10.2KB)
+        |   |   `-- keys.py                  (8KB)
+        |   |
+        |   +-- db/                          # 9 files + migrations/ + __pycache__
+        |   |   +-- __init__.py              (7.5KB)
+        |   |   +-- schema.sql               (20KB)  full DB schema
+        |   |   +-- database.py              (480B)
+        |   |   +-- migrate.py               (18.2KB)
+        |   |   +-- schema_update_step_13.sql (4KB)
+        |   |   +-- schema_update_step_13_fix.sql (1.4KB)
+        |   |   +-- add_tracking_indexes.sql (460B)
+        |   |   +-- admin_login_seed.sql     (4KB)
+        |   |   +-- seed_step_14.py          (3.5KB)
+        |   |   `-- migrations/              # 6 migration files
+        |   |       +-- 001_add_tracking_fields.sql    (714B)
+        |   |       +-- 002_add_request_tables.sql     (1.8KB)
+        |   |       +-- 004_route_optimization.sql     (864B)
+        |   |       +-- 005_driver_assignment.sql      (1.6KB)
+        |   |       +-- 006_trip_overrides.sql         (1.7KB)
+        |   |       `-- 007_admin_notifications.sql    (618B)
+        |   |
+        |   +-- routes/                      # 13 files + __pycache__
+        |   |   +-- __init__.py                  (1.9KB)
+        |   |   +-- auth_routes.py               (10.4KB)
+        |   |   +-- admin_routes.py              (72.7KB)  LARGE
+        |   |   +-- admin_requests_routes.py     (4.6KB)
+        |   |   +-- driver_routes.py             (22.7KB)
+        |   |   +-- employee_routes.py           (22.9KB)
+        |   |   +-- grouping_routes.py           (6.4KB)
+        |   |   +-- tracking_routes.py           (13.7KB)
+        |   |   +-- otp_routes.py                (5KB)
+        |   |   +-- health_routes.py             (4.3KB)
+        |   |   +-- availability_routes.py       (1.8KB)
+        |   |   +-- notification_routes.py       (2.9KB)
+        |   |   `-- trip_creation_v2_routes.py   (23.5KB)
+        |   |
+        |   +-- services/                    # 24 files + __pycache__
+        |   |   +-- __init__.py                      (5.1KB)
+        |   |   +-- otp_service.py                   (12.6KB)  ACTIVE
+        |   |   +-- otp_service_COMPLETE.py           (6.6KB)  legacy
+        |   |   +-- otp_service_v2.py                (15.4KB)  legacy
+        |   |   +-- grouping_service.py              (43.9KB)  ACTIVE LARGE
+        |   |   +-- routing_service.py               (15KB)    ACTIVE
+        |   |   +-- route_no_service.py              (6.2KB)   ACTIVE
+        |   |   +-- tracking_service.py              (18KB)    ACTIVE
+        |   |   +-- validation_service.py            (12.9KB)  ACTIVE
+        |   |   +-- admin_override_service.py        (8.8KB)
+        |   |   +-- assignment_service.py            (5.1KB)
+        |   |   +-- audit_service.py                 (3.6KB)
+        |   |   +-- auto_grouping_service.py         (13.5KB)
+        |   |   +-- availability_service.py          (5.8KB)
+        |   |   +-- capacity_optimizer.py            (13.4KB)
+        |   |   +-- driver_assignment.py             (13.2KB)
+        |   |   +-- geo_clustering.py                (16.7KB)
+        |   |   +-- notification_service.py          (5.5KB)
+        |   |   +-- route_planning.py                (12KB)
+        |   |   +-- socket_service.py                (11.5KB)
+        |   |   +-- trip_orchestration_service.py    (21.9KB)
+        |   |   +-- trip_override_service.py         (20.6KB)
+        |   |   +-- trip_service.py                  (12.4KB)
+        |   |   `-- trip_validation_service.py       (16.5KB)
+        |   |
+        |   +-- repositories/               # 11 files + __pycache__
+        |   |   +-- __init__.py             (577B)
+        |   |   +-- base_repository.py      (755B)
+        |   |   +-- admin_repo.py           (21.1KB)
+        |   |   +-- driver_repo.py          (20.3KB)
+        |   |   +-- driver_repository.py    (1.9KB)
+        |   |   +-- employee_repo.py        (13.3KB)
+        |   |   +-- employee_repository.py  (3.2KB)
+        |   |   +-- request_repo.py         (3.6KB)
+        |   |   +-- trip_repo.py            (17.6KB)
+        |   |   +-- trip_repository.py      (3.6KB)
+        |   |   `-- audit_repository.py     (784B)
+        |   |
+        |   +-- utils/                      # 7 files + __pycache__
+        |   |   +-- __init__.py             (3.5KB)
+        |   |   +-- response.py             (6.9KB)
+        |   |   +-- security.py             (16.9KB)
+        |   |   +-- jwt_utils.py            (1.4KB)
+        |   |   +-- logger.py               (2.9KB)
+        |   |   +-- time_utils.py           (9.8KB)
+        |   |   `-- validation.py           (6KB)
+        |   |
+        |   +-- seeds/                      # 5 files + __pycache__
+        |   |   +-- __init__.py             (1.8KB)
+        |   |   +-- seed_admin.py           (10.9KB)
+        |   |   +-- seed_admin_custom.py    (1KB)
+        |   |   +-- seed_drivers.py         (15.7KB)
+        |   |   `-- seed_employees.py       (15.8KB)
+        |   |
+        |   +-- tests/                      # 13 files + __pycache__
+        |   |   +-- __init__.py
+        |   |   +-- test_overrides.py           (5.7KB)
+        |   |   +-- test_sos_rating.py           (3KB)
+        |   |   +-- verify_admin_override.py     (5.6KB)
+        |   |   +-- verify_availability.py       (4KB)
+        |   |   +-- verify_capacity_logic.py     (3.7KB)
+        |   |   +-- verify_driver_assignment.py  (4.4KB)
+        |   |   +-- verify_full_flow.py          (11.6KB)
+        |   |   +-- verify_geo_grouping.py       (1.9KB)
+        |   |   +-- verify_notifications.py      (2.6KB)
+        |   |   +-- verify_rebalancing.py        (5.2KB)
+        |   |   +-- verify_route_planning.py     (3.6KB)
+        |   |   `-- verify_trip_orchestration.py (6KB)
+        |   |
+        |   +-- tools/                      # 8 files
+        |   |   +-- create_helpdesk_table.py     (1.3KB)
+        |   |   +-- create_test_admin.py         (1.8KB)
+        |   |   +-- inspect_db.py                (551B)
+        |   |   +-- migrate_sos_ratings.py       (2.4KB)
+        |   |   +-- reset_data.py                (2.4KB)
+        |   |   +-- test_backend.py              (4.6KB)
+        |   |   +-- test_fix_verification.py     (2.7KB)
+        |   |   `-- test_json_keys.py            (2.2KB)
+        |   |
+        |   +-- docs/                       # 1 file
+        |   |   `-- API_ADMIN_LOGIN.md      (5.7KB)
+        |   |
+        |   +-- DEBUG / UTILITY (loose files in backend root)
+        |   |   +-- add_shims.py                (2.3KB)
+        |   |   +-- apply_migration_007.py      (1.3KB)
+        |   |   +-- check_coords.py             (438B)
+        |   |   +-- check_db.py                 (650B)
+        |   |   +-- check_db_schema.py          (640B)
+        |   |   +-- check_db_schema_v2.py       (547B)
+        |   |   +-- check_db_state.py           (1.6KB)
+        |   |   +-- check_review_note.py        (560B)
+        |   |   +-- check_schema.py             (1.8KB)
+        |   |   +-- check_schema_fix.py         (590B)
+        |   |   +-- check_tables.py             (398B)
+        |   |   +-- check_trip_tables.py        (442B)
+        |   |   +-- debug_admin.py              (888B)
+        |   |   +-- debug_db.py                 (1.9KB)
+        |   |   +-- fix_imports.py              (2.3KB)
+        |   |   +-- inspect_trip_schema.py      (1.2KB)
+        |   |   +-- migrate_add_vehicle_type.py (1.8KB)
+        |   |   +-- migrate_step_13.py          (2.8KB)
+        |   |   +-- migrate_step_13_fix.py      (767B)
+        |   |   +-- migrate_tracking.py         (1.6KB)
+        |   |   +-- reset_admin_password.py     (1.1KB)
+        |   |   +-- run_migration.py            (1.2KB)
+        |   |   +-- run_review_fields_migration.py (1.3KB)
+        |   |   +-- run_vehicle_type_migration.py  (1.4KB)
+        |   |   +-- test_imports.py             (2.1KB)
+        |   |   +-- test_realtime_endpoints.py  (1.5KB)
+        |   |   +-- test_socket_tracking.py     (8.4KB)
+        |   |   +-- verify_driver_rejection.py  (3KB)
+        |   |   +-- verify_driver_signup.py     (2.1KB)
+        |   |   +-- verify_fixes.py             (4.1KB)
+        |   |   +-- verify_setup.py             (9.2KB)
+        |   |   +-- verify_step_14_csr.py       (5.9KB)
+        |   |   `-- verify_system.py            (4.3KB)
+        |   |
+        |   `-- venv/                       [!] DO NOT COMMIT (4168 items)
+        |
+        |----------------------------------------------------------------------
+        |
+        `-- rg_travel_flutter/               # Flutter App  BUILDING
+            |                                # 11 subdirs, 13 files (confirmed)
+            |
+            +-- pubspec.yaml                 (1.6KB)
+            +-- pubspec.lock                 (23KB)
+            +-- analysis_options.yaml        (3.2KB)
+            +-- README.md                    (576B)
+            +-- verify_setup.sh              (6.8KB)
+            +-- DESIGN_SYSTEM_QUICK_START.md (8.6KB)
+            +-- rg_travel_flutter.iml        (859B)  IDE project file
+            +-- analysis.txt                 (987KB) [!] gitignore candidate
+            +-- analysis_output.txt          (31KB)
+            +-- analysis_output_2.txt        (69KB)
+            +-- .flutter-plugins-dependencies (7.7KB)
+            +-- .gitignore                   (748B)
+            +-- .metadata                    (1.7KB)
+            |
+            +-- .dart_tool/                  IDE/build tool cache
+            +-- .idea/                       IntelliJ IDE config
+            +-- android/                     (14 items)
+            +-- ios/                         (21 items)
+            +-- web/                         (2 items)
+            +-- linux/                       (10 items)
+            +-- macos/                       (21 items)
+            +-- windows/                     (18 items)
+            |
+            +-- assets/                      # 2 subdirs, 4 files
+            |   +-- images/
+            |   |   +-- background.png
+            |   |   `-- logo.png
+            |   `-- fonts/
+            |       +-- NotoSans-Regular.ttf
+            |       `-- NotoSansDevanagari-Regular.ttf
+            |
+            +-- test/                        # 12 items confirmed
+            |   +-- widget_test.dart
+            |   +-- core/
+            |   |   +-- api_client_test.dart
+            |   |   +-- api_exception_test.dart
+            |   |   +-- session_store_test.dart
+            |   |   `-- validators_test.dart
+            |   +-- helpers/
+            |   |   +-- mock_http_client.dart
+            |   |   `-- test_env.dart
+            |   +-- services/
+            |   |   +-- admin_service_test.dart
+            |   |   +-- auth_service_test.dart
+            |   |   +-- driver_service_test.dart
+            |   |   `-- employee_service_test.dart
+            |   `-- widget/
+            |       `-- app_smoke_test.dart
+            |
+            `-- lib/                         # 85 items confirmed
+                |
+                +-- main.dart                (3.3KB)  app entry point
+                +-- app.dart                 (7.8KB)  MaterialApp + routing
+                +-- widget.dart              (1.2KB)
+                +-- DESIGN_SYSTEM_IMPLEMENTATION_GUIDE.md (26KB)
+                |
+                +-- core/                    # 7 subdirs, 0 root files
+                |   +-- config/
+                |   |   +-- api_config.dart  (8.4KB)
+                |   |   `-- env.dart         (4.3KB)
+                |   +-- network/
+                |   |   +-- api_client.dart  (6.6KB)
+                |   |   `-- api_exception.dart (4.3KB)
+                |   +-- storage/
+                |   |   +-- session_store.dart (6KB)
+                |   |   `-- token_store.dart
+                |   +-- theme/
+                |   |   +-- app_theme.dart   (27KB)
+                |   |   +-- responsive.dart  (5.9KB)
+                |   |   +-- DESIGN_SYSTEM.md (22KB)
+                |   |   `-- DESIGN_SYSTEM_INDEX.md (11KB)
+                |   +-- utils/
+                |   |   +-- constants.dart   (7KB)
+                |   |   `-- validators.dart  (7.4KB)
+                |   +-- services/
+                |   |   `-- api_service.dart (3.9KB)
+                |   `-- widgets/             (empty - reserved)
+                |
+                +-- models/                  # 7 files
+                |   +-- admin_model.dart     (3.8KB)
+                |   +-- driver_model.dart    (4.7KB)
+                |   +-- driver_request.dart  (1.7KB)
+                |   +-- employee_model.dart  (9.4KB)
+                |   +-- helpdesk_model.dart  (1.9KB)
+                |   +-- trip_model.dart      (17.8KB)
+                |   `-- COMPLETE_MODELS_REFERENCE.dart (14.8KB)
+                |
+                +-- services/                # 6 files
+                |   +-- auth_service.dart    (10.5KB)
+                |   +-- admin_service.dart   (24.8KB)
+                |   +-- driver_service.dart  (14.7KB)
+                |   +-- employee_service.dart (12.4KB)
+                |   +-- location_service.dart (11.6KB)
+                |   `-- socket_service.dart  (1.9KB)
+                |
+                +-- screens/                 # 5 subdirs, 1 root file
+                |   +-- help_desk_screen.dart (5.2KB)
+                |   +-- login/
+                |   |   `-- login_screen.dart              (38.8KB)
+                |   +-- admin/               # 13 files
+                |   |   +-- admin_dashboard.dart           (50KB)  MAIN  [!] compile fix
+                |   |   +-- admin_profile_sheet.dart       (16.8KB)
+                |   |   +-- admin_styles.dart              (2.9KB)
+                |   |   +-- admin_requests_screen.dart     (9.4KB)
+                |   |   +-- admin_helpdesk_screen.dart     (9.4KB)
+                |   |   +-- admin_notifications_screen.dart (8.3KB)
+                |   |   +-- admin_sos_screen.dart          (5KB)   [!] enum fix pending
+                |   |   +-- create_group_assign_screen.dart (49.8KB)
+                |   |   +-- live_trips_screen.dart         (34.1KB)
+                |   |   +-- drivers_screen.dart            (58.6KB)
+                |   |   +-- employees_screen.dart          (38.2KB)
+                |   |   +-- trip_history_screen.dart       (26.7KB)
+                |   |   `-- live_tracking_screen.dart      (15.6KB)
+                |   +-- driver/              # 7 files
+                |   |   +-- driver_dashboard.dart          (36.9KB)
+                |   |   +-- driver_profile_screen.dart     (15KB)
+                |   |   +-- assigned_trip_screen.dart      (21.8KB)
+                |   |   +-- otp_screen.dart                (12.3KB)
+                |   |   +-- driver_history_screen.dart     (7.1KB)
+                |   |   +-- driver_hometown_screen.dart    (4.7KB)
+                |   |   `-- driver_emergency_swap_screen.dart (8.1KB)
+                |   +-- employee/            # 8 files
+                |   |   +-- employee_dashboard.dart        (26.1KB)
+                |   |   +-- my_trip_screen.dart            (24.7KB)
+                |   |   +-- live_tracking_view.dart        (13.5KB)
+                |   |   +-- driver_tracking_screen.dart    (11.1KB)
+                |   |   +-- employee_absence_screen.dart   (11.5KB)
+                |   |   +-- employee_history_screen.dart   (7.4KB)
+                |   |   +-- employee_profile_update.dart   (6.2KB)
+                |   |   `-- help_desk_screen.dart          (6.6KB)
+                |   `-- tracking/            # 2 files
+                |       +-- live_tracking_screen.dart      (15.7KB)
+                |       `-- employee_live_tracking_screen.dart (17.5KB)
+                |
+                +-- widgets/                 # 4 subdirs, 1 root file
+                |   +-- tracking_error_state.dart          (4.9KB)
+                |   +-- auth/               # 3 files
+                |   |   +-- custom_text_field.dart  (5.6KB)
+                |   |   +-- role_tabs.dart           (4.1KB)
+                |   |   `-- sub_tabs.dart            (3.3KB)
+                |   +-- common/             # 13 files
+                |   |   +-- rg_button.dart           (6.8KB)
+                |   |   +-- rg_card.dart             (6.9KB)
+                |   |   +-- rg_loader.dart           (5.6KB)
+                |   |   +-- rg_app_bar.dart          (4.5KB)
+                |   |   +-- rg_empty_state.dart      (4.6KB)
+                |   |   +-- rg_error_view.dart       (6.2KB)
+                |   |   +-- rg_search_field.dart     (6.2KB)
+                |   |   +-- rg_status_chip.dart      (3.7KB)
+                |   |   +-- glassmorphic_card.dart   (12KB)
+                |   |   +-- modern_button.dart       (12KB)
+                |   |   +-- modern_form_field.dart   (12KB)
+                |   |   +-- status_banner.dart       (2.1KB)
+                |   |   `-- widgets.dart
+                |   +-- trip/               # 2 files
+                |   |   +-- trip_card.dart            (12KB)
+                |   |   `-- otp_dialog.dart           (17KB)
+                |   `-- layout/             # 1 file
+                |       `-- side_profile_drawer.dart  (19KB)
+                |
+                +-- state/                   # 2 files
+                |   +-- admin_provider.dart  (17.6KB)
+                |   `-- trip_provider.dart   (15KB)
+                |
+                `-- utils/                   # 1 file
+                    `-- validators.dart      (4.3KB)
+
+        |----------------------------------------------------------------------
+
+        PHASE SUMMARY
+
+        PHASE 1  COMPLETE
+        - driver_location_history, trip_otps, otp_audit_log tables added
+        - otp_service consolidated  (SHA-256 hash, state machine, audit log)
+        - 100% backward compatible
+
+        PHASE 2  COMPLETE
+        - OTP: 4 endpoints  (generate / status / verify / fetch)
+        - Live Tracking: GPS update + admin/employee views  (SSE + REST)
+        - All routes integrated, backend tests passing
+
+        PHASE 3  IN PROGRESS  (Feb 2026)
+        - All screens built: login / admin x13 / driver x7 / employee x8 / tracking x2
+        - Design system library complete (app_theme.dart 27KB, 15 widget components)
+        - Location service + WebSocket service implemented
+        - [!] admin_dashboard.dart     - compilation error pending fix
+        - [!] admin_sos_screen.dart    - AdminSection enum fix pending
+        - [ ] End-to-end integration testing
+
+        PHASE 4  PENDING  -  Final Polish and Deployment
+
+        RUNTIME
+        - Backend  :  python app.py         ->  http://localhost:5000
+        - Flutter  :  flutter run           ->  rg_travel_flutter/
+        - Database :  rg_travel_backend/rg_travel.db  (604KB, 13 tables)
+
+        KEY FILES TO NAVIGATE TO
+        - rg_travel_backend/app.py                                     (main backend)
+        - rg_travel_flutter/lib/main.dart                              (app entry)
+        - rg_travel_flutter/lib/app.dart                               (routing)
+        - rg_travel_flutter/lib/screens/admin/admin_dashboard.dart     (admin UI)
+        - rg_travel_flutter/lib/screens/driver/driver_dashboard.dart   (driver UI)
+        - rg_travel_flutter/lib/screens/employee/employee_dashboard.dart (employee UI)
+        - rg_travel_flutter/lib/core/theme/app_theme.dart             (design system)
+"""
+
+with open('RG_TRAVEL_SOLUTION', 'w', encoding='utf-8', newline='\n') as f:
+    f.write(content)
+
+lines = content.strip().split('\n')
+print(f'Written: {len(lines)} lines, {len(content)} bytes')

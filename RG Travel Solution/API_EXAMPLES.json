@@ -1,0 +1,531 @@
+{
+  "title": "RG Travel Solution - API Testing & Examples",
+  "version": "1.0",
+  "lastUpdated": "2026-02-01",
+  "baseUrl": "http://localhost:5000",
+  "testingSequence": [
+    {
+      "step": 1,
+      "name": "Server Health Check",
+      "description": "Verify backend is running"
+    },
+    {
+      "step": 2,
+      "name": "Seed Demo Data",
+      "description": "Create admin, drivers, and employees"
+    },
+    {
+      "step": 3,
+      "name": "Authentication Tests",
+      "description": "Test login for all roles"
+    },
+    {
+      "step": 4,
+      "name": "Admin Operations",
+      "description": "Create trips and manage employees"
+    },
+    {
+      "step": 5,
+      "name": "Driver Operations",
+      "description": "Test driver endpoints"
+    },
+    {
+      "step": 6,
+      "name": "Employee Operations",
+      "description": "Test employee endpoints"
+    }
+  ],
+  "examples": {
+    "healthCheck": {
+      "name": "Health Check Examples",
+      "curl": {
+        "method": "GET",
+        "path": "/api/health",
+        "command": "curl -X GET http://localhost:5000/api/health",
+        "response": {
+          "success": true,
+          "data": {
+            "status": "ok",
+            "timestamp": "2026-02-01T10:30:00",
+            "version": "1.0",
+            "database": "connected"
+          }
+        }
+      },
+      "python": {
+        "code": "import requests\nresponse = requests.get('http://localhost:5000/api/health')\nprint(response.json())",
+        "output": "{'success': True, 'data': {'status': 'ok', ...}}"
+      },
+      "javascript": {
+        "code": "fetch('http://localhost:5000/api/health')\n  .then(r => r.json())\n  .then(data => console.log(data))",
+        "output": "{success: true, data: {status: 'ok', ...}}"
+      }
+    },
+    "seedAdmin": {
+      "name": "Seed Admin Example",
+      "description": "Create demo admin account (Rushi Gund)",
+      "curl": {
+        "method": "POST",
+        "path": "/api/admin/seed",
+        "command": "curl -X POST http://localhost:5000/api/admin/seed -H 'Content-Type: application/json'",
+        "response": {
+          "success": true,
+          "message": "Admin seed created.",
+          "data": {
+            "action": "created",
+            "admin": {
+              "id": "admin_rg_001",
+              "mobile": "9325118627",
+              "name": "Rushi Gund",
+              "email": "admin@rgtravelsolution.com",
+              "office_name": "RG Travel Solution",
+              "office_location": "Pune",
+              "office_address": "RG Office Address, Pune, Maharashtra"
+            }
+          }
+        }
+      },
+      "python": {
+        "code": "import requests\nresponse = requests.post('http://localhost:5000/api/admin/seed')\nprint(response.json())",
+        "output": "Admin seeded successfully with mobile: 9325118627, password: Rushi123"
+      }
+    },
+    "adminLogin": {
+      "name": "Admin Login Example",
+      "description": "Authenticate as admin (Rushi Gund)",
+      "curl": {
+        "method": "POST",
+        "path": "/api/auth/admin/login",
+        "command": "curl -X POST http://localhost:5000/api/auth/admin/login \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"mobile\": \"9325118627\", \"password\": \"Rushi123\"}'",
+        "response": {
+          "success": true,
+          "message": "Login success",
+          "data": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "expires_at": "2026-02-05T21:59:00",
+            "profile": {
+              "id": "admin_rg_001",
+              "name": "Rushi Gund",
+              "mobile": "9325118627",
+              "email": "admin@rgtravelsolution.com",
+              "office_name": "RG Travel Solution",
+              "office_location": "Pune",
+              "office_address": "RG Office Address, Pune, Maharashtra"
+            }
+          }
+        }
+      },
+      "python": {
+        "code": "import requests\nresponse = requests.post(\n    'http://localhost:5000/api/auth/admin/login',\n    json={\n        'mobile': '9325118627',\n        'password': 'Rushi123'\n    }\n)\ndata = response.json()\ntoken = data['data']['token']\nprint(f'Token: {token}')",
+        "output": "Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      },
+      "postman": {
+        "method": "POST",
+        "url": "http://localhost:5000/api/auth/admin/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "mobile": "9325118627",
+          "password": "Rushi123"
+        }
+      }
+    },
+    "adminProfile": {
+      "name": "Get Admin Profile Example",
+      "description": "Retrieve admin details (requires token)",
+      "curl": {
+        "method": "GET",
+        "path": "/api/admin/profile",
+        "command": "curl -X GET http://localhost:5000/api/admin/profile \\\n  -H 'Authorization: Bearer YOUR_TOKEN_HERE'",
+        "response": {
+          "success": true,
+          "data": {
+            "id": "admin_rg_001",
+            "name": "Rushi Gund",
+            "mobile": "9325118627",
+            "office_name": "RG Travel Solution",
+            "office_address": "RG Office Address, Pune, Maharashtra",
+            "office_location": "Pune"
+          }
+        }
+      },
+      "python": {
+        "code": "import requests\ntoken = 'YOUR_TOKEN_HERE'\nheaders = {'Authorization': f'Bearer {token}'}\nresponse = requests.get('http://localhost:5000/api/admin/profile', headers=headers)\nprint(response.json())",
+        "output": "{'success': True, 'data': {'id': 1, 'name': 'Demo Admin', ...}}"
+      }
+    },
+    "seedDrivers": {
+      "name": "Seed Drivers Example",
+      "description": "Create demo drivers",
+      "curl": {
+        "method": "POST",
+        "path": "/api/seed/drivers",
+        "command": "curl -X POST http://localhost:5000/api/seed/drivers -H 'Content-Type: application/json'",
+        "response": {
+          "success": true,
+          "data": {
+            "message": "Drivers seeded successfully",
+            "count": 10,
+            "drivers": [
+              {
+                "id": 1,
+                "mobile": "0000001001",
+                "name": "Demo Driver 1",
+                "vehicle_no": "MH01AA0001",
+                "vehicle_type": "4",
+                "credentials": {
+                  "mobile": "0000001001",
+                  "password": "driver123"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "seedEmployees": {
+      "name": "Seed Employees Example",
+      "description": "Create demo employees",
+      "curl": {
+        "method": "POST",
+        "path": "/api/seed/employees",
+        "command": "curl -X POST http://localhost:5000/api/seed/employees -H 'Content-Type: application/json'",
+        "response": {
+          "success": true,
+          "data": {
+            "message": "Employees seeded successfully",
+            "count": 100,
+            "employees": [
+              {
+                "id": 1,
+                "mobile": "0000100001",
+                "name": "Demo Employee 1",
+                "employee_code": "EMP0001",
+                "credentials": {
+                  "mobile": "0000100001",
+                  "password": "emp123"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "getEmployees": {
+      "name": "Get All Employees Example",
+      "description": "Retrieve employee list (admin only)",
+      "curl": {
+        "method": "GET",
+        "path": "/api/admin/employees",
+        "command": "curl -X GET 'http://localhost:5000/api/admin/employees?limit=10&offset=0' \\\n  -H 'Authorization: Bearer YOUR_ADMIN_TOKEN'",
+        "response": {
+          "success": true,
+          "data": {
+            "employees": [
+              {
+                "id": 1,
+                "name": "Demo Employee 1",
+                "mobile": "0000100001",
+                "employee_code": "EMP0001",
+                "address": "123 Main St",
+                "lat": 18.5204,
+                "lng": 73.8567,
+                "approved": true
+              }
+            ],
+            "total": 100
+          }
+        }
+      }
+    },
+    "createTrip": {
+      "name": "Create Trip with Auto Grouping Example",
+      "description": "Create trip and automatically group employees",
+      "curl": {
+        "method": "POST",
+        "path": "/api/admin/trips/create-and-group",
+        "command": "curl -X POST http://localhost:5000/api/admin/trips/create-and-group \\\n  -H 'Authorization: Bearer YOUR_ADMIN_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"route_no\": \"RG20260201A\",\n    \"operation\": \"pickup\",\n    \"trip_time\": \"08:00\",\n    \"vehicle_type\": \"4\",\n    \"max_employees\": 15,\n    \"grouping_strategy\": \"distance\"\n  }'",
+        "response": {
+          "success": true,
+          "data": {
+            "trip_id": 1,
+            "route_no": "RG20260201A",
+            "groups": [
+              {
+                "group_id": 1,
+                "driver_id": 5,
+                "driver_name": "Demo Driver 1",
+                "employees": [
+                  {
+                    "id": 1,
+                    "name": "Demo Employee 1",
+                    "mobile": "0000100001"
+                  }
+                ],
+                "total": 4,
+                "vehicle_type": "4"
+              }
+            ],
+            "total_groups": 4,
+            "total_employees": 15
+          }
+        }
+      },
+      "python": {
+        "code": "import requests\nimport json\n\ntoken = 'YOUR_ADMIN_TOKEN'\nheaders = {\n    'Authorization': f'Bearer {token}',\n    'Content-Type': 'application/json'\n}\npayload = {\n    'route_no': 'RG20260201A',\n    'operation': 'pickup',\n    'trip_time': '08:00',\n    'vehicle_type': '4',\n    'max_employees': 15,\n    'grouping_strategy': 'distance'\n}\nresponse = requests.post(\n    'http://localhost:5000/api/admin/trips/create-and-group',\n    headers=headers,\n    json=payload\n)\nprint(json.dumps(response.json(), indent=2))",
+        "output": "Trip created with 4 groups and 15 employees"
+      }
+    },
+    "assignDriver": {
+      "name": "Assign Driver to Trip Example",
+      "description": "Assign specific driver to trip",
+      "curl": {
+        "method": "POST",
+        "path": "/api/admin/trips/assign-driver",
+        "command": "curl -X POST http://localhost:5000/api/admin/trips/assign-driver \\\n  -H 'Authorization: Bearer YOUR_ADMIN_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"trip_id\": 1,\n    \"group_id\": 1,\n    \"driver_id\": 5\n  }'",
+        "response": {
+          "success": true,
+          "data": {
+            "message": "Driver assigned successfully",
+            "trip_id": 1,
+            "group_id": 1,
+            "driver_id": 5
+          }
+        }
+      }
+    },
+    "getLiveTrips": {
+      "name": "Get Live Trips Example",
+      "description": "Retrieve active/in-progress trips",
+      "curl": {
+        "method": "GET",
+        "path": "/api/admin/trips/live",
+        "command": "curl -X GET http://localhost:5000/api/admin/trips/live \\\n  -H 'Authorization: Bearer YOUR_ADMIN_TOKEN'",
+        "response": {
+          "success": true,
+          "data": {
+            "trips": [
+              {
+                "id": 1,
+                "route_no": "RG20260201A",
+                "status": "in_progress",
+                "driver_id": 5,
+                "driver_name": "Demo Driver 1",
+                "employees_count": 4,
+                "vehicle_type": "4",
+                "start_time": "2026-02-01T08:15:00",
+                "total_km": 2.5
+              }
+            ],
+            "total": 1
+          }
+        }
+      }
+    },
+    "driverLogin": {
+      "name": "Driver Login Example",
+      "description": "Authenticate as driver",
+      "curl": {
+        "method": "POST",
+        "path": "/api/auth/driver/login",
+        "command": "curl -X POST http://localhost:5000/api/auth/driver/login \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"mobile\": \"0000001001\", \"password\": \"driver123\"}'",
+        "response": {
+          "success": true,
+          "data": {
+            "role": "driver",
+            "user_id": 1,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "expires_at": "2026-02-04T10:30:00",
+            "name": "Demo Driver 1",
+            "mobile": "0000001001"
+          }
+        }
+      }
+    },
+    "updateLocation": {
+      "name": "Update Driver Location Example",
+      "description": "Send GPS location update (live tracking)",
+      "curl": {
+        "method": "POST",
+        "path": "/api/driver/location/update",
+        "command": "curl -X POST http://localhost:5000/api/driver/location/update \\\n  -H 'Authorization: Bearer YOUR_DRIVER_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"trip_id\": 1,\n    \"latitude\": 18.5204,\n    \"longitude\": 73.8567,\n    \"accuracy\": 10.5,\n    \"speed\": 25.5,\n    \"bearing\": 180\n  }'",
+        "response": {
+          "success": true,
+          "data": {
+            "message": "Location updated successfully",
+            "timestamp": "2026-02-01T08:30:00"
+          }
+        }
+      }
+    },
+    "employeeLogin": {
+      "name": "Employee Login Example",
+      "description": "Authenticate as employee",
+      "curl": {
+        "method": "POST",
+        "path": "/api/auth/employee/login",
+        "command": "curl -X POST http://localhost:5000/api/auth/employee/login \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"mobile\": \"0000100001\", \"password\": \"emp123\"}'",
+        "response": {
+          "success": true,
+          "data": {
+            "role": "employee",
+            "user_id": 1,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "expires_at": "2026-02-04T10:30:00",
+            "name": "Demo Employee 1",
+            "mobile": "0000100001"
+          }
+        }
+      }
+    },
+    "getMyTrip": {
+      "name": "Get Employee's Current Trip Example",
+      "description": "Retrieve today's assigned trip details",
+      "curl": {
+        "method": "GET",
+        "path": "/api/employee/1/my-trip",
+        "command": "curl -X GET http://localhost:5000/api/employee/1/my-trip \\\n  -H 'Authorization: Bearer YOUR_EMPLOYEE_TOKEN'",
+        "response": {
+          "success": true,
+          "data": {
+            "trip_id": 1,
+            "route_no": "RG20260201A",
+            "status": "in_progress",
+            "driver_id": 5,
+            "driver_name": "Demo Driver 1",
+            "driver_mobile": "0000001001",
+            "operation": "pickup",
+            "vehicle_type": "4",
+            "vehicle_no": "MH01AA0001"
+          }
+        }
+      }
+    },
+    "getDriverLocation": {
+      "name": "Get Driver Live Location Example",
+      "description": "Retrieve driver's current location (for employee)",
+      "curl": {
+        "method": "GET",
+        "path": "/api/employee/trips/RG20260201A/driver-location",
+        "command": "curl -X GET 'http://localhost:5000/api/employee/trips/RG20260201A/driver-location' \\\n  -H 'Authorization: Bearer YOUR_EMPLOYEE_TOKEN'",
+        "response": {
+          "success": true,
+          "data": {
+            "driver_id": 5,
+            "driver_name": "Demo Driver 1",
+            "latitude": 18.5204,
+            "longitude": 73.8567,
+            "timestamp": "2026-02-01T08:25:00",
+            "distance_from_office": 5.2,
+            "eta_minutes": 10
+          }
+        }
+      }
+    }
+  },
+  "testingWorkflow": {
+    "step1": {
+      "name": "Verify Server Running",
+      "command": "curl -X GET http://localhost:5000/api/health",
+      "expectedStatus": 200,
+      "expectedData": {
+        "success": true,
+        "data": {
+          "status": "ok"
+        }
+      }
+    },
+    "step2": {
+      "name": "Seed Test Data",
+      "commands": [
+        "curl -X POST http://localhost:5000/api/seed/admin",
+        "curl -X POST http://localhost:5000/api/seed/drivers",
+        "curl -X POST http://localhost:5000/api/seed/employees"
+      ],
+      "expectedStatus": 201,
+      "note": "Save credentials for login tests"
+    },
+    "step3": {
+      "name": "Test Admin Login",
+      "command": "curl -X POST http://localhost:5000/api/auth/admin/login -d '{\"mobile\": \"0000000001\", \"password\": \"admin123\"}'",
+      "expectedStatus": 200,
+      "note": "Copy token for next steps"
+    },
+    "step4": {
+      "name": "Create Trip",
+      "command": "curl -X POST http://localhost:5000/api/admin/trips/create-and-group -H 'Authorization: Bearer <ADMIN_TOKEN>'",
+      "expectedStatus": 201,
+      "note": "Trip should be created with auto-grouped employees"
+    },
+    "step5": {
+      "name": "Test Driver Login",
+      "command": "curl -X POST http://localhost:5000/api/auth/driver/login -d '{\"mobile\": \"0000001001\", \"password\": \"driver123\"}'",
+      "expectedStatus": 200
+    },
+    "step6": {
+      "name": "Test Employee Login",
+      "command": "curl -X POST http://localhost:5000/api/auth/employee/login -d '{\"mobile\": \"0000100001\", \"password\": \"emp123\"}'",
+      "expectedStatus": 200
+    }
+  },
+  "postmanImport": {
+    "info": {
+      "name": "RG Travel Solution - API Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Health Check",
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:5000/api/health"
+        }
+      },
+      {
+        "name": "Seed Admin",
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:5000/api/seed/admin"
+        }
+      },
+      {
+        "name": "Admin Login",
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:5000/api/auth/admin/login",
+          "body": {
+            "raw": "{\"mobile\": \"0000000001\", \"password\": \"admin123\"}"
+          }
+        }
+      }
+    ]
+  },
+  "commonErrorsAndSolutions": [
+    {
+      "error": "Connection refused",
+      "cause": "Backend not running",
+      "solution": "Run: python app.py"
+    },
+    {
+      "error": "401 Unauthorized",
+      "cause": "Invalid token or expired session",
+      "solution": "Login again and get new token"
+    },
+    {
+      "error": "400 Bad Request",
+      "cause": "Invalid input data",
+      "solution": "Check request body matches schema"
+    },
+    {
+      "error": "404 Not Found",
+      "cause": "Resource doesn't exist",
+      "solution": "Verify ID exists in database"
+    },
+    {
+      "error": "500 Internal Server Error",
+      "cause": "Server-side error",
+      "solution": "Check backend logs for details"
+    }
+  ]
+}

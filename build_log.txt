@@ -1,0 +1,84 @@
+﻿Compiling lib\main.dart for the Web...                          
+Wasm dry run succeeded. Consider building and testing your application with the `--wasm` flag. See docs for more info: https://docs.flutter.dev/platform-integration/web/wasm
+Use --no-wasm-dry-run to disable these warnings.
+Target dart2js failed: ProcessException: Process exited abnormally with exit code 1:
+lib/core/theme/app_theme.dart:673:35:
+Error: The argument type 'WidgetStateProperty<BorderSide>' can't be assigned to the parameter type 'BorderSide?'.
+ - 'WidgetStateProperty' is from 'package:flutter/src/widgets/widget_state.dart' ('/C:/flutter/packages/flutter/lib/src/widgets/widget_state.dart').
+ - 'BorderSide' is from 'package:flutter/src/painting/borders.dart' ('/C:/flutter/packages/flutter/lib/src/painting/borders.dart').
+        side: WidgetStateProperty.all(
+                                  ^
+lib/core/theme/app_theme.dart:703:20:
+Error: The argument type 'TabBarTheme' can't be assigned to the parameter type 'TabBarThemeData?'.
+ - 'TabBarTheme' is from 'package:flutter/src/material/tab_bar_theme.dart' ('/C:/flutter/packages/flutter/lib/src/material/tab_bar_theme.dart').
+ - 'TabBarThemeData' is from 'package:flutter/src/material/tab_bar_theme.dart' ('/C:/flutter/packages/flutter/lib/src/material/tab_bar_theme.dart').
+      tabBarTheme: TabBarTheme(
+                   ^
+lib/screens/admin/create_group_assign_screen.dart:170:25:
+Error: A value of type 'Map<dynamic, dynamic>' can't be assigned to a variable of type 'Map<String, dynamic>'.
+ - 'Map' is from 'dart:core'.
+        _cabInventory = inventory;
+                        ^
+lib/screens/admin/create_group_assign_screen.dart:656:42:
+Error: The method 'apply' isn't defined for the type 'Widget'.
+ - 'Widget' is from 'package:flutter/src/widgets/framework.dart' ('/C:/flutter/packages/flutter/lib/src/widgets/framework.dart').
+                _buildPreviewModeBadge().apply(
+                                         ^^^^^
+lib/services/admin_service.dart:386:12:
+Error: A value of type 'Map<dynamic, dynamic>' can't be returned from an async function with return type 'Future<Map<String, dynamic>>'.
+ - 'Map' is from 'dart:core'.
+ - 'Future' is from 'dart:async'.
+    return data;
+           ^
+lib/services/admin_service.dart:455:29:
+Error: Method not found: 'ClipboardData'.
+    await Clipboard.setData(ClipboardData(text: text));
+                            ^^^^^^^^^^^^^
+lib/services/employee_service.dart:223:9:
+Error: Expected an identifier, but got '?'.
+        ? (res["data"] as Map).cast<String, dynamic>()
+        ^
+Error: Compilation failed.
+  Command: C:\flutter\bin\cache\dart-sdk\bin\dart.exe compile js --platform-binaries=C:\flutter\bin\cache\flutter_web_sdk\kernel --invoker=flutter_tool -Ddart.vm.product=true -DFLUTTER_VERSION=3.38.6 -DFLUTTER_CHANNEL=stable -DFLUTTER_GIT_URL=https://github.com/flutter/flutter.git -DFLUTTER_FRAMEWORK_REVISION=8b87286849 -DFLUTTER_ENGINE_REVISION=78fc3012e4 -DFLUTTER_DART_VERSION=3.10.7 -DFLUTTER_WEB_USE_SKIA=true -DFLUTTER_WEB_USE_SKWASM=false -DFLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.com/flutter-canvaskit/78fc3012e45889657f72359b005af7beac47ba3d/ --native-null-assertions --no-source-maps -O4 --minify -o C:\Users\HP\Desktop\RG Travel Solution\RG Travel Solution\rg_travel_flutter\.dart_tool\flutter_build\6368aeea448397d887138e13c54ed9f9\app.dill --packages=C:\Users\HP\Desktop\RG Travel Solution\RG Travel Solution\rg_travel_flutter\.dart_tool\package_config.json --cfe-only C:\Users\HP\Desktop\RG Travel Solution\RG Travel Solution\rg_travel_flutter\.dart_tool\flutter_build\6368aeea448397d887138e13c54ed9f9\main.dart
+#0      RunResult.throwException (package:flutter_tools/src/base/process.dart:153:5)
+#1      _DefaultProcessUtils.run (package:flutter_tools/src/base/process.dart:379:19)
+<asynchronous suspension>
+#2      Dart2JSTarget.build (package:flutter_tools/src/build_system/targets/web.dart:207:5)
+<asynchronous suspension>
+#3      _BuildInstance._invokeInternal (package:flutter_tools/src/build_system/build_system.dart:895:9)
+<asynchronous suspension>
+#4      Future.wait.<anonymous closure> (dart:async/future.dart:546:21)
+<asynchronous suspension>
+#5      _BuildInstance.invokeTarget (package:flutter_tools/src/build_system/build_system.dart:833:32)
+<asynchronous suspension>
+#6      Future.wait.<anonymous closure> (dart:async/future.dart:546:21)
+<asynchronous suspension>
+#7      _BuildInstance.invokeTarget (package:flutter_tools/src/build_system/build_system.dart:833:32)
+<asynchronous suspension>
+#8      FlutterBuildSystem.build (package:flutter_tools/src/build_system/build_system.dart:653:16)
+<asynchronous suspension>
+#9      WebBuilder.buildWeb (package:flutter_tools/src/web/compile.dart:94:34)
+<asynchronous suspension>
+#10     BuildWebCommand.runCommand (package:flutter_tools/src/commands/build_web.dart:296:5)
+<asynchronous suspension>
+#11     FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1559:27)
+<asynchronous suspension>
+#12     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#13     CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+<asynchronous suspension>
+#14     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:487:9)
+<asynchronous suspension>
+#15     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#16     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:422:5)
+<asynchronous suspension>
+#17     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:104:11)
+<asynchronous suspension>
+#18     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#19     main (package:flutter_tools/executable.dart:103:3)
+<asynchronous suspension>
+System.Management.Automation.RemoteException
+Compiling lib\main.dart for the Web...                             55.1s
+Error: Failed to compile application for the Web.

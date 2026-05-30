@@ -1,0 +1,1250 @@
+{
+  "project": "RG Travel Solution - Complete API Endpoints",
+  "baseUrl": "http://10.0.2.2:5000",
+  "baseUrlProduction": "https://api.rgtravelsolution.com",
+  "version": "1.0.0",
+  "authentication": "Bearer token in Authorization header",
+  "endpoints": {
+    "health": {
+      "GET /api/health": {
+        "description": "Health check endpoint",
+        "auth": false,
+        "request": {},
+        "response": {
+          "success": true,
+          "message": "Server is running",
+          "data": {
+            "status": "healthy",
+            "timestamp": "2026-02-02T10:30:00Z"
+          }
+        }
+      }
+    },
+    "auth": {
+      "POST /api/auth/admin/signup": {
+        "description": "Admin registration",
+        "auth": false,
+        "request": {
+          "name": "John Admin",
+          "mobile": "9876543210",
+          "email": "admin@rg.com",
+          "password": "SecurePassword123",
+          "office_name": "RG Main Office",
+          "office_address": "Bangalore, India"
+        },
+        "response": {
+          "success": true,
+          "message": "Admin registered successfully",
+          "data": {
+            "id": "ADMIN001",
+            "name": "John Admin",
+            "mobile": "9876543210",
+            "email": "admin@rg.com",
+            "office_name": "RG Main Office",
+            "office_address": "Bangalore, India",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "created_at": "2026-02-02T10:00:00Z"
+          }
+        }
+      },
+      "POST /api/auth/admin/login": {
+        "description": "Admin login",
+        "auth": false,
+        "request": {
+          "mobile": "9876543210",
+          "password": "SecurePassword123"
+        },
+        "response": {
+          "success": true,
+          "message": "Login successful",
+          "data": {
+            "id": "ADMIN001",
+            "name": "John Admin",
+            "mobile": "9876543210",
+            "role": "admin",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "expires_at": "2026-02-09T10:00:00Z"
+          }
+        }
+      },
+      "POST /api/auth/driver/signup": {
+        "description": "Driver registration",
+        "auth": false,
+        "request": {
+          "name": "Rajesh Driver",
+          "mobile": "9876543211",
+          "dl_no": "DL1234567890",
+          "vehicle_no": "MH12AB1234",
+          "vehicle_type": "4",
+          "home_town": "Bangalore",
+          "password": "DriverPass123"
+        },
+        "response": {
+          "success": true,
+          "message": "Driver registered successfully",
+          "data": {
+            "id": "DRV001",
+            "name": "Rajesh Driver",
+            "mobile": "9876543211",
+            "dl_no": "DL1234567890",
+            "vehicle_no": "MH12AB1234",
+            "vehicle_type": "4",
+            "home_town": "Bangalore",
+            "is_approved": 0,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "created_at": "2026-02-02T10:00:00Z"
+          }
+        }
+      },
+      "POST /api/auth/driver/login": {
+        "description": "Driver login",
+        "auth": false,
+        "request": {
+          "mobile": "9876543211",
+          "password": "DriverPass123"
+        },
+        "response": {
+          "success": true,
+          "message": "Login successful",
+          "data": {
+            "id": "DRV001",
+            "name": "Rajesh Driver",
+            "mobile": "9876543211",
+            "role": "driver",
+            "is_approved": 1,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "expires_at": "2026-02-09T10:00:00Z"
+          }
+        }
+      },
+      "POST /api/auth/employee/signup": {
+        "description": "Employee registration",
+        "auth": false,
+        "request": {
+          "name": "Priya Employee",
+          "mobile": "9876543212",
+          "email": "priya@company.com",
+          "emp_code": "EMP001",
+          "department": "Engineering",
+          "password": "EmpPass123"
+        },
+        "response": {
+          "success": true,
+          "message": "Employee registered successfully",
+          "data": {
+            "id": "EMP001",
+            "name": "Priya Employee",
+            "mobile": "9876543212",
+            "email": "priya@company.com",
+            "emp_code": "EMP001",
+            "department": "Engineering",
+            "is_approved": 0,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "created_at": "2026-02-02T10:00:00Z"
+          }
+        }
+      },
+      "POST /api/auth/employee/login": {
+        "description": "Employee login",
+        "auth": false,
+        "request": {
+          "mobile": "9876543212",
+          "password": "EmpPass123"
+        },
+        "response": {
+          "success": true,
+          "message": "Login successful",
+          "data": {
+            "id": "EMP001",
+            "name": "Priya Employee",
+            "mobile": "9876543212",
+            "role": "employee",
+            "is_approved": 1,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "expires_at": "2026-02-09T10:00:00Z"
+          }
+        }
+      }
+    },
+    "admin": {
+      "GET /api/admin/{adminId}": {
+        "description": "Fetch admin profile",
+        "auth": true,
+        "params": {
+          "adminId": "ADMIN001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "id": "ADMIN001",
+            "name": "John Admin",
+            "mobile": "9876543210",
+            "email": "admin@rg.com",
+            "office_name": "RG Main Office",
+            "office_address": "Bangalore, India",
+            "created_at": "2026-02-02T10:00:00Z",
+            "updated_at": "2026-02-02T10:00:00Z"
+          }
+        }
+      },
+      "PUT /api/admin/{adminId}": {
+        "description": "Update admin profile",
+        "auth": true,
+        "params": {
+          "adminId": "ADMIN001"
+        },
+        "request": {
+          "name": "John Admin Updated",
+          "mobile": "9876543210",
+          "office_name": "RG Main Office",
+          "office_address": "Updated Address"
+        },
+        "response": {
+          "success": true,
+          "message": "Admin profile updated",
+          "data": {
+            "id": "ADMIN001",
+            "name": "John Admin Updated",
+            "mobile": "9876543210",
+            "office_name": "RG Main Office",
+            "office_address": "Updated Address",
+            "updated_at": "2026-02-02T11:00:00Z"
+          }
+        }
+      },
+      "GET /api/admin/drivers": {
+        "description": "List all approved drivers",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "id": "DRV001",
+              "name": "Rajesh Driver",
+              "mobile": "9876543211",
+              "vehicle_no": "MH12AB1234",
+              "vehicle_type": "4",
+              "is_approved": 1,
+              "dl_expiry": "2026-12-31",
+              "created_at": "2026-02-02T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "GET /api/admin/driver-requests": {
+        "description": "List pending driver approval requests",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "id": "DRV002",
+              "name": "New Driver",
+              "mobile": "9876543213",
+              "dl_no": "DL9876543210",
+              "vehicle_no": "MH12CD5678",
+              "is_approved": 0,
+              "created_at": "2026-02-02T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "POST /api/admin/driver-requests/{driverId}/approve": {
+        "description": "Approve driver request",
+        "auth": true,
+        "params": {
+          "driverId": "DRV002"
+        },
+        "response": {
+          "success": true,
+          "message": "Driver approved successfully"
+        }
+      },
+      "POST /api/admin/driver-requests/{driverId}/reject": {
+        "description": "Reject driver request",
+        "auth": true,
+        "params": {
+          "driverId": "DRV002"
+        },
+        "request": {
+          "reason": "Documentation incomplete"
+        },
+        "response": {
+          "success": true,
+          "message": "Driver request rejected"
+        }
+      },
+      "GET /api/admin/employees": {
+        "description": "List all approved employees",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "id": "EMP001",
+              "name": "Priya Employee",
+              "mobile": "9876543212",
+              "email": "priya@company.com",
+              "emp_code": "EMP001",
+              "department": "Engineering",
+              "is_approved": 1,
+              "created_at": "2026-02-02T10:00:00Z"
+            }
+          ]
+        }
+      },
+      "GET /api/admin/employee-requests": {
+        "description": "List pending employee approval requests",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": []
+        }
+      },
+      "POST /api/admin/employee-requests/{employeeId}/approve": {
+        "description": "Approve employee request",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP002"
+        },
+        "response": {
+          "success": true,
+          "message": "Employee approved successfully"
+        }
+      },
+      "POST /api/admin/employee-requests/{employeeId}/reject": {
+        "description": "Reject employee request",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP002"
+        },
+        "request": {
+          "reason": "Details not matching"
+        },
+        "response": {
+          "success": true,
+          "message": "Employee request rejected"
+        }
+      },
+      "GET /api/admin/trips/live": {
+        "description": "List all live/active trips",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "route_no": "RG20260202001",
+              "mode": "pickup",
+              "driver_id": "DRV001",
+              "driver_name": "Rajesh Driver",
+              "vehicle_no": "MH12AB1234",
+              "scheduled_time": "2026-02-02T08:00:00Z",
+              "status": "in_progress",
+              "employees": [
+                {
+                  "id": "EMP001",
+                  "name": "Priya Employee",
+                  "pickup_location": "Bangalore City",
+                  "mobile": "9876543212",
+                  "status": "picked"
+                }
+              ],
+              "stops": [],
+              "polyline": "encoded_polyline_string",
+              "estimated_km": 25.5,
+              "completed_km": 12.3,
+              "created_at": "2026-02-02T07:30:00Z"
+            }
+          ]
+        }
+      },
+      "GET /api/admin/trips/history": {
+        "description": "Fetch trip history with filters",
+        "auth": true,
+        "queryParams": {
+          "q": "optional_search_query",
+          "from": "2026-01-01",
+          "to": "2026-02-02",
+          "driver_id": "DRV001"
+        },
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "route_no": "RG20260201001",
+              "mode": "drop",
+              "driver_id": "DRV001",
+              "driver_name": "Rajesh Driver",
+              "status": "completed",
+              "scheduled_time": "2026-02-01T18:00:00Z",
+              "completed_at": "2026-02-01T18:45:00Z",
+              "total_km": 35.2,
+              "total_duration_minutes": 45
+            }
+          ]
+        }
+      },
+      "POST /api/admin/trips/{routeNo}/cancel": {
+        "description": "Cancel an active trip",
+        "auth": true,
+        "params": {
+          "routeNo": "RG20260202001"
+        },
+        "request": {
+          "reason": "Driver emergency"
+        },
+        "response": {
+          "success": true,
+          "message": "Trip cancelled successfully"
+        }
+      },
+      "POST /api/admin/trips/{routeNo}/complete": {
+        "description": "Manually complete a trip",
+        "auth": true,
+        "params": {
+          "routeNo": "RG20260202001"
+        },
+        "response": {
+          "success": true,
+          "message": "Trip completed successfully"
+        }
+      },
+      "GET /api/admin/trips/{routeNo}/tracking": {
+        "description": "Get real-time tracking for a trip",
+        "auth": true,
+        "params": {
+          "routeNo": "RG20260202001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "route_no": "RG20260202001",
+            "driver": {
+              "id": "DRV001",
+              "name": "Rajesh Driver",
+              "mobile": "9876543211"
+            },
+            "latest_location": {
+              "lat": 12.9716,
+              "lng": 77.5946,
+              "speed": 45.5,
+              "heading": 180,
+              "timestamp": "2026-02-02T10:30:00Z"
+            },
+            "polyline": "encoded_polyline_string",
+            "stops": [
+              {
+                "employee_id": "EMP001",
+                "location": "Bangalore City",
+                "lat": 12.9716,
+                "lng": 77.5946,
+                "status": "visited"
+              }
+            ]
+          }
+        }
+      },
+      "POST /api/admin/groups/create": {
+        "description": "Create employee groups for trip assignment",
+        "auth": true,
+        "request": {
+          "mode": "pickup",
+          "vehicle_type": 4,
+          "scheduled_time": "2026-02-02T08:00:00Z",
+          "admin_override": false,
+          "employee_ids": [],
+          "preferred_driver_ids": []
+        },
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "group_id": "GRP001",
+              "employee_ids": ["EMP001", "EMP002", "EMP003"],
+              "stops": [
+                {
+                  "employee_id": "EMP001",
+                  "location": "Bangalore City"
+                }
+              ],
+              "estimated_km": 25.5,
+              "vehicle_type": 4
+            }
+          ]
+        }
+      },
+      "POST /api/admin/trips/assign": {
+        "description": "Assign trip to a group with driver",
+        "auth": true,
+        "request": {
+          "group_id": "GRP001",
+          "driver_id": "DRV001",
+          "cab_no": "MH12AB1234",
+          "mode": "pickup",
+          "scheduled_time": "2026-02-02T08:00:00Z"
+        },
+        "response": {
+          "success": true,
+          "message": "Trip assigned successfully",
+          "data": {
+            "route_no": "RG20260202001",
+            "driver_id": "DRV001",
+            "driver_name": "Rajesh Driver",
+            "cab_no": "MH12AB1234",
+            "scheduled_time": "2026-02-02T08:00:00Z",
+            "status": "assigned",
+            "created_at": "2026-02-02T07:30:00Z"
+          }
+        }
+      },
+      "GET /api/admin/drivers/online": {
+        "description": "List all online drivers with current locations",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "driver_id": "DRV001",
+              "driver_name": "Rajesh Driver",
+              "lat": 12.9716,
+              "lng": 77.5946,
+              "speed": 45.5,
+              "updated_at": "2026-02-02T10:30:00Z"
+            }
+          ]
+        }
+      },
+      "GET /api/admin/emergency-requests": {
+        "description": "List all emergency swap requests",
+        "auth": true,
+        "response": {
+          "success": true,
+          "data": [
+            {
+              "id": "EMERG001",
+              "route_no": "RG20260202001",
+              "driver_id": "DRV001",
+              "new_driver_name": "Backup Driver",
+              "new_driver_mobile": "9876543220",
+              "new_cab_no": "MH12XY5678",
+              "reason": "Vehicle breakdown",
+              "photo_url": "https://...",
+              "status": "pending",
+              "created_at": "2026-02-02T10:30:00Z"
+            }
+          ]
+        }
+      },
+      "POST /api/admin/emergency-requests/{requestId}/approve": {
+        "description": "Approve emergency swap request",
+        "auth": true,
+        "params": {
+          "requestId": "EMERG001"
+        },
+        "response": {
+          "success": true,
+          "message": "Emergency request approved"
+        }
+      },
+      "POST /api/admin/emergency-requests/{requestId}/reject": {
+        "description": "Reject emergency swap request",
+        "auth": true,
+        "params": {
+          "requestId": "EMERG001"
+        },
+        "request": {
+          "reason": "Not valid reason"
+        },
+        "response": {
+          "success": true,
+          "message": "Emergency request rejected"
+        }
+      }
+    },
+    "driver": {
+      "GET /api/driver/{driverId}": {
+        "description": "Fetch driver profile",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "id": "DRV001",
+            "name": "Rajesh Driver",
+            "mobile": "9876543211",
+            "dl_no": "DL1234567890",
+            "vehicle_no": "MH12AB1234",
+            "vehicle_type": "4",
+            "home_town": "Bangalore",
+            "is_approved": 1,
+            "dl_expiry": "2026-12-31",
+            "created_at": "2026-02-02T10:00:00Z"
+          }
+        }
+      },
+      "PUT /api/driver/{driverId}": {
+        "description": "Update driver profile",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001"
+        },
+        "request": {
+          "name": "Rajesh Driver",
+          "mobile": "9876543211",
+          "home_town": "Bangalore"
+        },
+        "response": {
+          "success": true,
+          "message": "Profile updated successfully",
+          "data": {
+            "id": "DRV001",
+            "name": "Rajesh Driver",
+            "mobile": "9876543211",
+            "home_town": "Bangalore",
+            "updated_at": "2026-02-02T11:00:00Z"
+          }
+        }
+      },
+      "GET /api/driver/{driverId}/assigned-trip": {
+        "description": "Get driver's currently assigned trip",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "route_no": "RG20260202001",
+            "mode": "pickup",
+            "scheduled_time": "2026-02-02T08:00:00Z",
+            "status": "assigned",
+            "driver_id": "DRV001",
+            "cab_no": "MH12AB1234",
+            "vehicle_type": "4",
+            "employees": [
+              {
+                "id": "EMP001",
+                "name": "Priya Employee",
+                "mobile": "9876543212",
+                "pickup_location": "Bangalore City",
+                "status": "pending",
+                "otp_start": null,
+                "otp_end": null
+              }
+            ],
+            "stops": [],
+            "created_at": "2026-02-02T07:30:00Z"
+          }
+        }
+      },
+      "POST /api/driver/{driverId}/trips/{routeNo}/start": {
+        "description": "Start a trip",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001",
+          "routeNo": "RG20260202001"
+        },
+        "response": {
+          "success": true,
+          "message": "Trip started successfully",
+          "data": {
+            "route_no": "RG20260202001",
+            "status": "in_progress",
+            "started_at": "2026-02-02T08:00:00Z"
+          }
+        }
+      },
+      "POST /api/driver/{driverId}/trips/{routeNo}/complete": {
+        "description": "Complete a trip",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001",
+          "routeNo": "RG20260202001"
+        },
+        "response": {
+          "success": true,
+          "message": "Trip completed successfully",
+          "data": {
+            "route_no": "RG20260202001",
+            "status": "completed",
+            "completed_at": "2026-02-02T09:00:00Z",
+            "total_km": 35.2,
+            "total_duration_minutes": 60
+          }
+        }
+      },
+      "GET /api/driver/{driverId}/otp": {
+        "description": "Get OTP for employee start/end verification",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001"
+        },
+        "queryParams": {
+          "route_no": "RG20260202001",
+          "type": "start"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "otp": "123456",
+            "expires_at": "2026-02-02T08:05:00Z",
+            "route_no": "RG20260202001"
+          }
+        }
+      },
+      "POST /api/driver/{driverId}/trips/{routeNo}/verify-otp": {
+        "description": "Verify employee OTP for start/end",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001",
+          "routeNo": "RG20260202001"
+        },
+        "request": {
+          "type": "start",
+          "otp": "123456"
+        },
+        "response": {
+          "success": true,
+          "message": "OTP verified successfully",
+          "data": {
+            "verified": true,
+            "route_no": "RG20260202001",
+            "verified_at": "2026-02-02T08:02:00Z"
+          }
+        }
+      },
+      "POST /api/driver/{driverId}/trips/{routeNo}/no-show": {
+        "description": "Mark employee as no-show",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001",
+          "routeNo": "RG20260202001"
+        },
+        "request": {
+          "employee_id": "EMP001",
+          "note": "Employee didn't show up at pickup point"
+        },
+        "response": {
+          "success": true,
+          "message": "No-show marked successfully"
+        }
+      },
+      "POST /api/driver/{driverId}/trips/{routeNo}/location": {
+        "description": "Send driver's current GPS location",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001",
+          "routeNo": "RG20260202001"
+        },
+        "request": {
+          "lat": 12.9716,
+          "lng": 77.5946,
+          "speed": 45.5,
+          "heading": 180
+        },
+        "response": {
+          "success": true,
+          "message": "Location updated successfully"
+        }
+      },
+      "POST /api/driver/{driverId}/trips/{routeNo}/emergency-swap": {
+        "description": "Request emergency vehicle/driver swap",
+        "auth": true,
+        "params": {
+          "driverId": "DRV001",
+          "routeNo": "RG20260202001"
+        },
+        "request": {
+          "new_driver_name": "Backup Driver",
+          "new_driver_mobile": "9876543220",
+          "new_cab_no": "MH12XY5678",
+          "photo_url": "https://...",
+          "reason": "Vehicle breakdown"
+        },
+        "response": {
+          "success": true,
+          "message": "Emergency swap request submitted"
+        }
+      },
+      "GET /api/driver/trips/{routeNo}/tracking": {
+        "description": "Get driver's own trip tracking data",
+        "auth": true,
+        "params": {
+          "routeNo": "RG20260202001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "route_no": "RG20260202001",
+            "driver": {
+              "id": "DRV001",
+              "name": "Rajesh Driver"
+            },
+            "polyline": "encoded_polyline_string",
+            "stops": [],
+            "latest_location": {
+              "lat": 12.9716,
+              "lng": 77.5946,
+              "speed": 45.5
+            },
+            "updated_at": "2026-02-02T10:30:00Z"
+          }
+        }
+      }
+    },
+    "employee": {
+      "GET /api/employee/{employeeId}": {
+        "description": "Fetch employee profile",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "id": "EMP001",
+            "name": "Priya Employee",
+            "mobile": "9876543212",
+            "email": "priya@company.com",
+            "emp_code": "EMP001",
+            "department": "Engineering",
+            "is_approved": 1,
+            "created_at": "2026-02-02T10:00:00Z"
+          }
+        }
+      },
+      "PUT /api/employee/{employeeId}": {
+        "description": "Update employee profile",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP001"
+        },
+        "request": {
+          "name": "Priya Employee",
+          "mobile": "9876543212",
+          "email": "priya@company.com"
+        },
+        "response": {
+          "success": true,
+          "message": "Profile updated successfully",
+          "data": {
+            "id": "EMP001",
+            "name": "Priya Employee",
+            "mobile": "9876543212",
+            "email": "priya@company.com",
+            "updated_at": "2026-02-02T11:00:00Z"
+          }
+        }
+      },
+      "GET /api/employee/{employeeId}/my-trip": {
+        "description": "Get employee's assigned trip",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "route_no": "RG20260202001",
+            "mode": "pickup",
+            "scheduled_time": "2026-02-02T08:00:00Z",
+            "status": "assigned",
+            "driver": {
+              "id": "DRV001",
+              "name": "Rajesh Driver",
+              "mobile": "9876543211"
+            },
+            "pickup_location": "Bangalore City",
+            "vehicle_no": "MH12AB1234",
+            "vehicle_type": "4",
+            "employee_status": "pending",
+            "otp_start_verified": false,
+            "otp_end_verified": false,
+            "created_at": "2026-02-02T07:30:00Z"
+          }
+        }
+      },
+      "GET /api/employee/{employeeId}/otp": {
+        "description": "Get OTP for trip start/end",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP001"
+        },
+        "queryParams": {
+          "route_no": "RG20260202001",
+          "type": "start"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "otp": "123456",
+            "expires_at": "2026-02-02T08:05:00Z",
+            "route_no": "RG20260202001"
+          }
+        }
+      },
+      "GET /api/employee/{employeeId}/trips/{routeNo}/tracking": {
+        "description": "Get real-time tracking for employee's trip",
+        "auth": true,
+        "params": {
+          "employeeId": "EMP001",
+          "routeNo": "RG20260202001"
+        },
+        "response": {
+          "success": true,
+          "data": {
+            "route_no": "RG20260202001",
+            "driver": {
+              "id": "DRV001",
+              "name": "Rajesh Driver",
+              "mobile": "9876543211"
+            },
+            "latest_location": {
+              "lat": 12.9716,
+              "lng": 77.5946,
+              "speed": 45.5,
+              "timestamp": "2026-02-02T10:30:00Z"
+            },
+            "polyline": "encoded_polyline_string",
+            "stops": [
+              {
+                "employee_id": "EMP001",
+                "location": "Bangalore City",
+                "lat": 12.9716,
+                "lng": 77.5946,
+                "status": "pending"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "groupCreationAndAssignment": {
+      "GET /api/admin/time-slots": {
+        "description": "Fetch available time slots for pickup/drop",
+        "auth": true,
+        "queryParams": {
+          "trip_type": "pickup|drop"
+        },
+        "response": {
+          "success": true,
+          "message": "Time slots fetched",
+          "data": {
+            "trip_type": "pickup",
+            "tripType": "pickup",
+            "slots": ["09:00", "10:00", "16:00"]
+          }
+        }
+      },
+      "GET /api/admin/available-vehicles": {
+        "description": "Fetch available vehicles with driver information",
+        "auth": true,
+        "queryParams": {
+          "vehicle_type": "4|6|both"
+        },
+        "response": {
+          "success": true,
+          "message": "Available vehicles fetched",
+          "data": {
+            "vehicle_type": "both",
+            "vehicleType": "both",
+            "count": 2,
+            "vehicles": [
+              {
+                "vehicle_id": 1,
+                "vehicle_no": "MH12AB1234",
+                "vehicle_type": 4,
+                "is_available": true,
+                "driver": {
+                  "driver_id": "DRV001",
+                  "name": "Rajesh Driver",
+                  "phone": "9876543211",
+                  "is_approved": true,
+                  "is_active": true
+                }
+              }
+            ]
+          }
+        }
+      },
+      "GET /api/admin/available-employees": {
+        "description": "Fetch eligible employees for selected trip type and slot",
+        "auth": true,
+        "queryParams": {
+          "trip_type": "pickup|drop",
+          "time_slot": "HH:MM"
+        },
+        "response": {
+          "success": true,
+          "message": "Available employees fetched",
+          "data": {
+            "trip_type": "pickup",
+            "tripType": "pickup",
+            "time_slot": "09:00",
+            "timeSlot": "09:00",
+            "count": 2,
+            "employees": [
+              {
+                "id": 31,
+                "employee_id": "31",
+                "name": "Employee 1",
+                "phone": "1000000000",
+                "address": "Alephata, Junner",
+                "home_lat": 19.1234,
+                "home_lng": 73.1234
+              }
+            ]
+          }
+        }
+      },
+      "POST /api/grouping/preview": {
+        "description": "Preview auto groups using proximity and 6-first priority",
+        "auth": true,
+        "request": {
+          "trip_type": "pickup",
+          "time_slot": "09:00",
+          "vehicle_types": [6, 4],
+          "selected_vehicle_ids": [1, 2],
+          "selected_employee_ids": [31, 32],
+          "allow_partial_group": false
+        },
+        "response": {
+          "success": true,
+          "message": "Grouping preview generated",
+          "data": {
+            "trip_type": "pickup",
+            "tripType": "pickup",
+            "time_slot": "09:00",
+            "timeSlot": "09:00",
+            "allow_partial_group": false,
+            "vehicle_types": [6, 4],
+            "groups": [
+              {
+                "capacity": 6,
+                "employees": [
+                  {
+                    "id": 31,
+                    "name": "Employee 1",
+                    "phone": "1000000000",
+                    "address": "Alephata, Junner",
+                    "home_lat": 19.1234,
+                    "home_lng": 73.1234,
+                    "sequence_no": 1
+                  }
+                ],
+                "suggested_vehicle": null
+              }
+            ],
+            "unassigned_employees": []
+          }
+        }
+      },
+      "POST /api/grouping/create": {
+        "description": "Create groups for Flutter createGroups flow (non-persistent preview-style response)",
+        "auth": true,
+        "request": {
+          "admin_id": "ADM001",
+          "trip_type": "pickup",
+          "selected_time": "09:00",
+          "vehicle_types": [6, 4],
+          "driver_ids": [1, 2],
+          "employee_ids": [31, 32, 33],
+          "vehicle_priority_enabled": true,
+          "office_lat": 19.076,
+          "office_lng": 72.8777
+        },
+        "response": {
+          "success": true,
+          "message": "Groups created",
+          "data": {
+            "groups": [
+              {
+                "group_index": 1,
+                "capacity": 6,
+                "vehicle_type": 6,
+                "members": [
+                  {
+                    "id": 31,
+                    "name": "Employee 1",
+                    "mobile": "1000000000",
+                    "phone": "1000000000",
+                    "drop_location": "Alephata, Junner",
+                    "sequence_no": 1
+                  }
+                ]
+              }
+            ],
+            "route_no": "20266468FE",
+            "routeNo": "20266468FE",
+            "warnings": []
+          }
+        }
+      },
+      "POST /api/v2/trips/create-groups": {
+        "description": "Primary Flutter createGroups endpoint (same request contract as /api/grouping/create)",
+        "auth": true,
+        "request": {
+          "admin_id": "ADM001",
+          "trip_type": "pickup",
+          "selected_time": "09:00",
+          "vehicle_types": [6, 4],
+          "driver_ids": [1, 2],
+          "employee_ids": [31, 32, 33],
+          "vehicle_priority_enabled": true
+        },
+        "response": {
+          "success": true,
+          "message": "Groups created",
+          "data": {
+            "groups": [],
+            "warnings": []
+          }
+        }
+      },
+      "DELETE /api/v2/trips/groups/{group_id}": {
+        "description": "Delete a created preview group before trip assignment (soft delete when supported)",
+        "auth": true,
+        "params": {
+          "group_id": 12
+        },
+        "response": {
+          "success": true,
+          "message": "Group deleted",
+          "data": {
+            "group_id": 12,
+            "action": "soft_deleted"
+          }
+        }
+      },
+      "POST /api/trips/create": {
+        "description": "Finalize trip assignment and persist trips/groups/routes",
+        "auth": true,
+        "request": {
+          "trip_type": "pickup",
+          "time_slot": "09:00",
+          "groups": [
+            {
+              "capacity": 6,
+              "employee_ids": [31, 32],
+              "vehicle_id": 1,
+              "driver_id": "DRV001"
+            }
+          ]
+        },
+        "response": {
+          "success": true,
+          "message": "Trips created successfully",
+          "data": {
+            "route_no": "20266468FE",
+            "routeNo": "20266468FE",
+            "route_nos": ["20266468FE"],
+            "routeNos": ["20266468FE"],
+            "time_slot": "09:00",
+            "timeSlot": "09:00",
+            "trip_type": "pickup",
+            "tripType": "pickup",
+            "trips_created": true,
+            "groups_saved": 1,
+            "routes_saved": 1,
+            "trips": [
+              {
+                "trip_id": 10,
+                "route_no": "20266468FE",
+                "routeNo": "20266468FE",
+                "time_slot": "09:00",
+                "timeSlot": "09:00",
+                "trip_type": "pickup",
+                "tripType": "pickup",
+                "driver": {
+                  "driver_id": "DRV001",
+                  "name": "Rajesh Driver",
+                  "phone": "9876543211"
+                },
+                "vehicle": {
+                  "vehicle_id": 1,
+                  "vehicle_no": "MH12AB1234",
+                  "vehicle_type": 6
+                },
+                "group": {
+                  "capacity": 6,
+                  "members": [
+                    {
+                      "id": 31,
+                      "name": "Employee 1",
+                      "phone": "1000000000",
+                      "address": "Alephata, Junner",
+                      "sequence_no": 1
+                    }
+                  ]
+                },
+                "total_km": 12.7,
+                "polyline": "encoded_polyline_string"
+              }
+            ]
+          }
+        }
+      },
+      "POST /api/trips/override": {
+        "description": "Admin override for employee swap or vehicle change",
+        "auth": true,
+        "request": {
+          "action": "change_vehicle",
+          "trip_id": 10,
+          "vehicle_id": 2,
+          "admin_id": "ADMIN001"
+        },
+        "response": {
+          "success": true,
+          "message": "Vehicle changed",
+          "data": {
+            "trip_id": 10,
+            "route_no": "20266468FE",
+            "routeNo": "20266468FE",
+            "vehicle_id": 2,
+            "rerouted": false
+          }
+        }
+      }
+    }
+  },
+  "errorResponses": {
+    "400": {
+      "description": "Bad Request",
+      "example": {
+        "success": false,
+        "message": "Invalid input parameters",
+        "errors": ["Field 'mobile' is required", "Field 'password' must be at least 8 characters"]
+      }
+    },
+    "401": {
+      "description": "Unauthorized",
+      "example": {
+        "success": false,
+        "message": "Authentication required. Invalid or missing token."
+      }
+    },
+    "403": {
+      "description": "Forbidden",
+      "example": {
+        "success": false,
+        "message": "You don't have permission to access this resource"
+      }
+    },
+    "404": {
+      "description": "Not Found",
+      "example": {
+        "success": false,
+        "message": "Resource not found"
+      }
+    },
+    "500": {
+      "description": "Internal Server Error",
+      "example": {
+        "success": false,
+        "message": "Internal server error"
+      }
+    }
+  }
+}

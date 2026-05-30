@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: rg-travel-backend
+    runtime: python
+    rootDir: .
+    buildCommand: pip install -r rg_travel_backend/requirements.txt
+    startCommand: cd rg_travel_backend && gunicorn --worker-class eventlet -w 1 -b 0.0.0.0:$PORT wsgi:app
+    envVars:
+      - key: RG_DEBUG
+        value: "0"
+      - key: RG_HOST
+        value: "0.0.0.0"
+      - key: RG_ENABLE_SEED_API
+        value: "0"
+      - key: RG_ENABLE_CONFIG_API
+        value: "0"
+      - key: RG_ENABLE_SETTINGS_API
+        value: "0"
+      - key: RG_SECRET_KEY
+        sync: false
+      - key: RG_GOOGLE_MAPS_API_KEY
+        sync: false

@@ -1,0 +1,342 @@
+{
+  "title": "RG Travel Solution - Configuration Reference",
+  "version": "1.0",
+  "lastUpdated": "2026-02-01",
+  "description": "Complete configuration and environment variables for RG Travel Solution",
+  "environmentFile": ".env",
+  "exampleFile": ".env.example",
+  "configurations": {
+    "flaskServer": {
+      "name": "Flask Server Settings",
+      "description": "Basic Flask server configuration",
+      "variables": [
+        {
+          "name": "RG_DEBUG",
+          "type": "boolean",
+          "default": 1,
+          "description": "Enable Flask debug mode",
+          "example": "RG_DEBUG=1",
+          "notes": "Set to 0 for production"
+        },
+        {
+          "name": "RG_HOST",
+          "type": "string",
+          "default": "0.0.0.0",
+          "description": "Server bind address",
+          "example": "RG_HOST=0.0.0.0",
+          "notes": "0.0.0.0 allows external connections"
+        },
+        {
+          "name": "RG_PORT",
+          "type": "integer",
+          "default": 5000,
+          "description": "Server listening port",
+          "example": "RG_PORT=5000",
+          "notes": "Use 8000+ for non-root environments"
+        }
+      ]
+    },
+    "cors": {
+      "name": "CORS (Cross-Origin Resource Sharing)",
+      "description": "Flutter and web client connection settings",
+      "variables": [
+        {
+          "name": "RG_CORS_ENABLED",
+          "type": "boolean",
+          "default": 1,
+          "description": "Enable CORS support",
+          "example": "RG_CORS_ENABLED=1",
+          "notes": "Required for Flutter web"
+        },
+        {
+          "name": "RG_CORS_ORIGINS",
+          "type": "string",
+          "default": "*",
+          "description": "Allowed origins (comma-separated)",
+          "example": "RG_CORS_ORIGINS=*",
+          "examples": [
+            "RG_CORS_ORIGINS=* (development)",
+            "RG_CORS_ORIGINS=https://yourdomain.com,http://localhost:3000 (production)"
+          ],
+          "notes": "Use * only in development. Restrict in production."
+        }
+      ]
+    },
+    "database": {
+      "name": "Database Configuration",
+      "description": "SQLite database location and settings",
+      "variables": [
+        {
+          "name": "RG_DB_PATH",
+          "type": "string",
+          "default": "./rg_travel.db",
+          "description": "Path to SQLite database file",
+          "example": "RG_DB_PATH=/path/to/rg_travel.db",
+          "notes": "Leave empty for default (backend/rg_travel.db). Can be absolute or relative."
+        },
+        {
+          "name": "RG_ALLOW_DB_RESET",
+          "type": "boolean",
+          "default": 0,
+          "description": "Allow POST /api/db/reset endpoint",
+          "example": "RG_ALLOW_DB_RESET=0",
+          "warning": "DANGEROUS: Set 1 only in development. Clears all data!"
+        }
+      ]
+    },
+    "security": {
+      "name": "Security & Authentication",
+      "description": "Password hashing and token management",
+      "variables": [
+        {
+          "name": "RG_SECRET_KEY",
+          "type": "string",
+          "default": "change-this-to-a-long-random-secret",
+          "description": "Flask secret key for session signing",
+          "example": "RG_SECRET_KEY=your-long-random-secret-key-here",
+          "notes": "MUST be changed for production. Use 32+ characters."
+        },
+        {
+          "name": "RG_TOKEN_TTL_MINUTES",
+          "type": "integer",
+          "default": 1440,
+          "description": "Bearer token expiry time (minutes)",
+          "example": "RG_TOKEN_TTL_MINUTES=1440",
+          "notes": "1440 = 24 hours, 4320 = 3 days"
+        },
+        {
+          "name": "RG_OTP_EXPIRY_MINUTES",
+          "type": "integer",
+          "default": 5,
+          "description": "OTP code validity duration (minutes)",
+          "example": "RG_OTP_EXPIRY_MINUTES=5",
+          "notes": "Time window for OTP verification"
+        }
+      ]
+    },
+    "googleMaps": {
+      "name": "Google Maps Integration",
+      "description": "Routing, distance calculation, and geocoding",
+      "variables": [
+        {
+          "name": "RG_GOOGLE_MAPS_API_KEY",
+          "type": "string",
+          "default": "YOUR_GOOGLE_MAPS_API_KEY_HERE",
+          "description": "Google Maps API key for routing services",
+          "example": "RG_GOOGLE_MAPS_API_KEY=AIzaSy...",
+          "notes": [
+            "Get from: https://console.cloud.google.com",
+            "Enable: Directions API, Distance Matrix API, Geocoding API",
+            "Restrict to IP addresses or API only in production"
+          ]
+        }
+      ]
+    },
+    "featureFlags": {
+      "name": "Feature Flags (Development APIs)",
+      "description": "Enable/disable development and management endpoints",
+      "variables": [
+        {
+          "name": "RG_ENABLE_CONFIG_API",
+          "type": "boolean",
+          "default": 0,
+          "description": "Enable /api/config/* endpoints",
+          "example": "RG_ENABLE_CONFIG_API=1",
+          "notes": "Provides runtime configuration read/modify"
+        },
+        {
+          "name": "RG_ENABLE_SETTINGS_API",
+          "type": "boolean",
+          "default": 0,
+          "description": "Enable /api/settings/* endpoints",
+          "example": "RG_ENABLE_SETTINGS_API=1",
+          "notes": "Provides settings health and runtime info"
+        },
+        {
+          "name": "RG_ENABLE_SEED_API",
+          "type": "boolean",
+          "default": 1,
+          "description": "Enable /api/seed/* endpoints",
+          "example": "RG_ENABLE_SEED_API=1",
+          "notes": "Create demo admin, drivers, employees"
+        }
+      ]
+    },
+    "grouping": {
+      "name": "Employee Grouping Configuration",
+      "description": "Trip grouping and vehicle capacity settings",
+      "variables": [
+        {
+          "name": "RG_MAX_GROUP_SIZE_4",
+          "type": "integer",
+          "default": 4,
+          "description": "Max employees per 4-seater vehicle",
+          "example": "RG_MAX_GROUP_SIZE_4=4",
+          "notes": "Keep at 4 for safety"
+        },
+        {
+          "name": "RG_MAX_GROUP_SIZE_6",
+          "type": "integer",
+          "default": 6,
+          "description": "Max employees per 6-seater vehicle",
+          "example": "RG_MAX_GROUP_SIZE_6=6",
+          "notes": "Keep at 6 for safety"
+        },
+        {
+          "name": "RG_MAX_EMPLOYEE_PER_TRIP",
+          "type": "integer",
+          "default": 6,
+          "description": "Maximum employees per single trip",
+          "example": "RG_MAX_EMPLOYEE_PER_TRIP=6",
+          "notes": "Safe upper cap for grouping algorithm"
+        }
+      ]
+    }
+  },
+  "environmentSetup": {
+    "windows": [
+      "1. Copy .env.example to .env in project root",
+      "2. Edit .env file in any text editor",
+      "3. Add your values for each variable",
+      "4. Save file",
+      "5. Run: python app.py"
+    ],
+    "macOS": [
+      "1. Open terminal in project root",
+      "2. Copy: cp .env.example .env",
+      "3. Edit: nano .env (or vim .env)",
+      "4. Add your values",
+      "5. Save (Ctrl+O, Enter, Ctrl+X in nano)",
+      "6. Run: python app.py"
+    ],
+    "linux": [
+      "1. Open terminal in project root",
+      "2. Copy: cp .env.example .env",
+      "3. Edit: nano .env or vi .env",
+      "4. Add your values",
+      "5. Save",
+      "6. Run: python app.py"
+    ],
+    "docker": [
+      "1. Create .env file with variables",
+      "2. Build: docker build -t rg-travel .",
+      "3. Run: docker run --env-file .env -p 5000:5000 rg-travel"
+    ]
+  },
+  "quickStartEnvironment": {
+    "development": {
+      "description": "Local development setup",
+      "variables": {
+        "RG_DEBUG": 1,
+        "RG_HOST": "0.0.0.0",
+        "RG_PORT": 5000,
+        "RG_CORS_ENABLED": 1,
+        "RG_CORS_ORIGINS": "*",
+        "RG_DB_PATH": "",
+        "RG_ALLOW_DB_RESET": 1,
+        "RG_SECRET_KEY": "dev-secret-key-change-in-production",
+        "RG_TOKEN_TTL_MINUTES": 1440,
+        "RG_OTP_EXPIRY_MINUTES": 5,
+        "RG_GOOGLE_MAPS_API_KEY": "YOUR_API_KEY",
+        "RG_ENABLE_CONFIG_API": 1,
+        "RG_ENABLE_SETTINGS_API": 1,
+        "RG_ENABLE_SEED_API": 1,
+        "RG_MAX_GROUP_SIZE_4": 4,
+        "RG_MAX_GROUP_SIZE_6": 6,
+        "RG_MAX_EMPLOYEE_PER_TRIP": 6
+      }
+    },
+    "staging": {
+      "description": "Staging/QA environment",
+      "variables": {
+        "RG_DEBUG": 0,
+        "RG_HOST": "0.0.0.0",
+        "RG_PORT": 5000,
+        "RG_CORS_ENABLED": 1,
+        "RG_CORS_ORIGINS": "https://staging.yourdomain.com",
+        "RG_DB_PATH": "/var/lib/rg_travel/rg_travel.db",
+        "RG_ALLOW_DB_RESET": 0,
+        "RG_SECRET_KEY": "use-very-long-random-secret-for-staging",
+        "RG_TOKEN_TTL_MINUTES": 1440,
+        "RG_OTP_EXPIRY_MINUTES": 5,
+        "RG_GOOGLE_MAPS_API_KEY": "YOUR_STAGING_API_KEY",
+        "RG_ENABLE_CONFIG_API": 0,
+        "RG_ENABLE_SETTINGS_API": 0,
+        "RG_ENABLE_SEED_API": 0,
+        "RG_MAX_GROUP_SIZE_4": 4,
+        "RG_MAX_GROUP_SIZE_6": 6,
+        "RG_MAX_EMPLOYEE_PER_TRIP": 6
+      }
+    },
+    "production": {
+      "description": "Production environment (NEVER use defaults)",
+      "variables": {
+        "RG_DEBUG": 0,
+        "RG_HOST": "0.0.0.0",
+        "RG_PORT": 8000,
+        "RG_CORS_ENABLED": 1,
+        "RG_CORS_ORIGINS": "https://yourdomain.com,https://www.yourdomain.com",
+        "RG_DB_PATH": "/var/db/rg_travel/rg_travel.db",
+        "RG_ALLOW_DB_RESET": 0,
+        "RG_SECRET_KEY": "MUST-BE-VERY-LONG-RANDOM-SECRET-DO-NOT-SHARE",
+        "RG_TOKEN_TTL_MINUTES": 1440,
+        "RG_OTP_EXPIRY_MINUTES": 5,
+        "RG_GOOGLE_MAPS_API_KEY": "YOUR_PRODUCTION_API_KEY",
+        "RG_ENABLE_CONFIG_API": 0,
+        "RG_ENABLE_SETTINGS_API": 0,
+        "RG_ENABLE_SEED_API": 0,
+        "RG_MAX_GROUP_SIZE_4": 4,
+        "RG_MAX_GROUP_SIZE_6": 6,
+        "RG_MAX_EMPLOYEE_PER_TRIP": 6
+      }
+    }
+  },
+  "baseURLs": {
+    "local": "http://localhost:5000",
+    "androidEmulator": "http://10.0.2.2:5000",
+    "iOSSimulator": "http://localhost:5000",
+    "staging": "https://api.staging.yourdomain.com",
+    "production": "https://api.yourdomain.com"
+  },
+  "commonIssues": [
+    {
+      "issue": "Flutter shows 'Failed to fetch'",
+      "solutions": [
+        "Verify backend is running: GET /api/health",
+        "Check base URL matches platform (10.0.2.2 for Android)",
+        "Verify CORS is enabled: RG_CORS_ENABLED=1",
+        "Check firewall allows port 5000"
+      ]
+    },
+    {
+      "issue": "Database 'Permission denied' error",
+      "solutions": [
+        "Check file path in RG_DB_PATH is readable",
+        "Verify user has write permissions to directory",
+        "Ensure directory exists or app can create it"
+      ]
+    },
+    {
+      "issue": "Google Maps API errors",
+      "solutions": [
+        "Verify API key is valid",
+        "Enable required APIs in Google Cloud Console",
+        "Check IP restrictions allow your server"
+      ]
+    }
+  ],
+  "generateSecretKey": {
+    "description": "How to generate a secure secret key",
+    "python": "python -c \"import secrets; print(secrets.token_urlsafe(32))\"",
+    "bash": "openssl rand -base64 32",
+    "online": "Use: https://generate-random.org/ (for development only)"
+  },
+  "notes": [
+    "Copy .env.example to .env before running",
+    "Never commit .env file (it contains secrets)",
+    "Different environments need different settings",
+    "Google Maps API key is required for routing",
+    "Change RG_SECRET_KEY for production",
+    "Set RG_ALLOW_DB_RESET=0 for production"
+  ]
+}
