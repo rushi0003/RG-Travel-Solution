@@ -1,0 +1,51 @@
+# OS / Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+# Python virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache and testing
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# Environments / Secrets
+.env
+.env.*
+!.env.example
+
+# SQLite Databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-*
+*.sqlite-*
+
+# Logs and builds
+*.log
+*.txt
+build_log*
+output.txt
+query
+rg_login.json
+
+# Flutter specific (nested under subdirectories)
+**/build/
+**/.dart_tool/
+**/.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/generated/
+**/GeneratedPluginRegistrant.*
