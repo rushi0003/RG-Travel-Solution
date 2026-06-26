@@ -50,7 +50,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:rg_travel_flutter/core/storage/session_store.dart';
 import 'package:rg_travel_flutter/core/theme/app_theme.dart';
@@ -67,6 +66,7 @@ import 'package:rg_travel_flutter/screens/admin/admin_sos_screen.dart';
 import 'package:rg_travel_flutter/screens/admin/admin_notifications_screen.dart';
 import 'package:rg_travel_flutter/screens/admin/admin_helpdesk_screen.dart';
 import 'package:rg_travel_flutter/widgets/common/map_coordinate_picker_sheet.dart';
+import 'package:rg_travel_flutter/widgets/common/rg_logo.dart';
 import 'package:latlong2/latlong.dart';
 // ... (existing imports)
 
@@ -92,12 +92,6 @@ enum AdminSection {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-  // -----------------------
-  // Base URL handling
-  // -----------------------
-  late String _baseUrl;
-  final _baseUrlCtrl = TextEditingController();
-
   // -----------------------
   // UI state
   // -----------------------
@@ -135,15 +129,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
   void initState() {
     super.initState();
 
-    _baseUrl = kIsWeb ? "http://127.0.0.1:5000" : "http://10.0.2.2:5000";
-    _baseUrlCtrl.text = _baseUrl;
-
     _bootstrap();
   }
 
   @override
   void dispose() {
-    _baseUrlCtrl.dispose();
     _driverSearchCtrl.dispose();
     _employeeSearchCtrl.dispose();
     _tripSearchCtrl.dispose();
@@ -350,14 +340,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
   }
 
   // =========================
-  // UI helpers
-  // =========================
-  void _toast(String msg) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-  }
-
-  // =========================
   // BUILD
   // =========================
   @override
@@ -502,11 +484,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
             // Avatar + name
             Row(
               children: [
-                CircleAvatar(
-                  radius: 26,
-                  backgroundColor: AppThemeColors.cardGlassActive,
-                  child: const Icon(Icons.admin_panel_settings,
-                      color: AppThemeColors.textPrimary),
+                const RGLogo(
+                  variant: RGLogoVariant.mark,
+                  width: 52,
+                  height: 52,
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
@@ -579,40 +560,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ),
 
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              "Backend Base URL",
-              style: AppTypography.labelSmall.copyWith(
-                color: AppThemeColors.textSecondary,
-              ),
-            ),
-            const SizedBox(height: 6),
-            TextField(
-              controller: _baseUrlCtrl,
-              style: AppTypography.labelSmall
-                  .copyWith(color: AppThemeColors.textPrimary),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: AppThemeColors.cardGlass,
-                hintText: "http://127.0.0.1:5000",
-                hintStyle: AppTypography.labelSmall
-                    .copyWith(color: AppThemeColors.textTertiary),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(AppRadius.sm),
-                    borderSide: BorderSide.none),
-                contentPadding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.sm, vertical: AppSpacing.sm),
-              ),
-              onSubmitted: (v) async {
-                final nv = v.trim();
-                if (nv.isEmpty) return;
-                safeSetState(() {
-                  _baseUrl = nv;
-                });
-                _toast("Base URL set to: $_baseUrl");
-                await _bootstrap();
-              },
-            ),
           ],
         ),
       ),

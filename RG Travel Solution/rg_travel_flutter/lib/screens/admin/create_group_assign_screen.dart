@@ -1778,15 +1778,6 @@ class _CreateGroupAssignScreenState extends State<CreateGroupAssignScreen> {
 
       if (!mounted) return;
       final firstTrip = createdTrips.isNotEmpty ? createdTrips.first : null;
-      final routeNos = createdTrips
-          .map((trip) => (trip["route_no"] ?? trip["routeNo"] ?? "").toString())
-          .where((route) => route.isNotEmpty)
-          .toList();
-      final startOtps = createdTrips
-          .map((trip) =>
-              (trip["start_otp"] ?? trip["startOtp"] ?? "").toString())
-          .where((otp) => otp.isNotEmpty)
-          .toList();
 
       showDialog<void>(
         context: context,
@@ -1798,10 +1789,6 @@ class _CreateGroupAssignScreenState extends State<CreateGroupAssignScreen> {
             children: [
               _tripDetailRow("Trips", "${createdTrips.length}"),
               _tripDetailRow("Groups", "${originalGroups.length}"),
-              if (routeNos.isNotEmpty)
-                _tripDetailRow("First Route", routeNos.first),
-              if (startOtps.isNotEmpty)
-                _tripDetailRow("First OTP", startOtps.first),
               const SizedBox(height: 10),
               Text(
                 createdTrips.length == originalGroups.length
@@ -1826,17 +1813,6 @@ class _CreateGroupAssignScreenState extends State<CreateGroupAssignScreen> {
             ],
           ),
           actions: [
-            if (startOtps.isNotEmpty)
-              TextButton(
-                onPressed: () {
-                  AdminService.copyToClipboard(startOtps.first);
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("First Start OTP copied")),
-                  );
-                },
-                child: const Text("Copy First OTP"),
-              ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -2831,23 +2807,41 @@ class _CreateGroupAssignScreenState extends State<CreateGroupAssignScreen> {
             children: [
               SizedBox(
                 width: 180,
-                child: _actionBtn("Clear", onTap: _clearAll),
+                child: _actionBtn(
+                  "Clear",
+                  icon: Icons.cleaning_services_outlined,
+                  accent: AppThemeColors.textTertiary,
+                  onTap: _clearAll,
+                ),
               ),
               SizedBox(
                 width: 220,
-                child: _actionBtn("Create Group",
-                    primary: true,
-                    onTap: _creatingGroups ? null : _createGroups),
+                child: _actionBtn(
+                  "Create Group",
+                  icon: Icons.groups_2_outlined,
+                  accent: AppThemeColors.success,
+                  primary: true,
+                  onTap: _creatingGroups ? null : _createGroups,
+                ),
               ),
               SizedBox(
                 width: 220,
-                child: _actionBtn("View & Modify Groups",
-                    onTap: _openViewModifyGroups),
+                child: _actionBtn(
+                  "View & Modify Groups",
+                  icon: Icons.tune_outlined,
+                  accent: AppThemeColors.warning,
+                  onTap: _openViewModifyGroups,
+                ),
               ),
               SizedBox(
                 width: 220,
-                child: _actionBtn("Assign Trip",
-                    primary: true, onTap: _openAssignTrip),
+                child: _actionBtn(
+                  "Assign Trip",
+                  icon: Icons.route_outlined,
+                  accent: AppThemeColors.primary,
+                  primary: true,
+                  onTap: _openAssignTrip,
+                ),
               ),
             ],
           ),
@@ -3478,49 +3472,97 @@ class _CreateGroupAssignScreenState extends State<CreateGroupAssignScreen> {
     );
   }
 
-  Widget _actionBtn(String label, {VoidCallback? onTap, bool primary = false}) {
+  Widget _actionBtn(
+    String label, {
+    VoidCallback? onTap,
+    bool primary = false,
+    IconData? icon,
+    Color? accent,
+  }) {
     final enabled = onTap != null;
-    final bg = primary
-        ? AppThemeColors.primary.withValues(alpha: 0.20)
-        : AppThemeColors.cardGlass;
-    final border = primary
-        ? AppThemeColors.primary.withValues(alpha: 0.45)
-        : AppThemeColors.border;
+    final c = accent ??
+        (primary ? AppThemeColors.primary : AppThemeColors.textPrimary);
+    final textColor = enabled
+        ? (primary ? AppThemeColors.textPrimary : c)
+        : AppThemeColors.textDisabled;
 
     return InkWell(
       onTap: enabled ? onTap : null,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(14),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+        height: 52,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color: enabled ? bg : AppThemeColors.cardGlass,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: enabled ? border : AppThemeColors.border),
+          gradient: enabled
+              ? LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    c.withValues(alpha: primary ? 0.30 : 0.16),
+                    AppThemeColors.surfaceLight.withValues(alpha: 0.82),
+                    c.withValues(alpha: primary ? 0.14 : 0.07),
+                  ],
+                )
+              : null,
+          color: enabled ? null : AppThemeColors.cardGlass,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: enabled ? c.withValues(alpha: 0.42) : AppThemeColors.border,
+          ),
           boxShadow: enabled
               ? [
                   BoxShadow(
-                    color: (primary
-                            ? AppThemeColors.primary
-                            : AppThemeColors.background)
-                        .withValues(alpha: 0.18),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  )
+                    color: c.withValues(alpha: primary ? 0.24 : 0.14),
+                    blurRadius: 16,
+                    offset: const Offset(0, 7),
+                  ),
+                  BoxShadow(
+                    color: AppThemeColors.background.withValues(alpha: 0.28),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
                 ]
               : null,
         ),
-        child: Center(
-          child: Text(
-            label,
-            style: AppTypography.bodyMedium.copyWith(
-              fontWeight: FontWeight.w900,
-              color: enabled
-                  ? (primary
-                      ? AppThemeColors.primary
-                      : AppThemeColors.textPrimary)
-                  : AppThemeColors.textDisabled,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) ...[
+              Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: enabled
+                      ? c.withValues(alpha: 0.16)
+                      : AppThemeColors.stateLayerOnTertiaryDisabled,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: enabled
+                        ? c.withValues(alpha: 0.32)
+                        : AppThemeColors.border,
+                  ),
+                ),
+                child: Icon(
+                  icon,
+                  size: 17,
+                  color: enabled ? c : AppThemeColors.textDisabled,
+                ),
+              ),
+              const SizedBox(width: 9),
+            ],
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: AppTypography.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w900,
+                  color: textColor,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
